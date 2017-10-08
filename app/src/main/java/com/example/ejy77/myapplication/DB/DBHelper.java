@@ -3,6 +3,7 @@ package com.example.ejy77.myapplication.DB;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.drawable.Drawable;
 
 /**
  * Created by ejy77 on 2017-10-04.
@@ -67,6 +68,18 @@ public class DBHelper extends SQLiteOpenHelper
     db.execSQL(sb.toString());
     db.close();
 }
+
+
+    public void SKshopInsert(String id, String name, String nation, String price, String point, byte[] image)
+    {
+        initStringBuilder();
+        SQLiteDatabase db = getWritableDatabase();
+        sb.append("INSERT INTO SKshop VALUES( ");
+        sb.append("'"+ id +"', '"+ name +"', '"+ nation +"', '"+ price +"', '"+ image +"'");
+        sb.append(")");
+        db.execSQL(sb.toString());
+        db.close();
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {

@@ -5,7 +5,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
     tools:context="com.example.ejy77.myapplication.Login">
+
 
 
 
@@ -13,14 +15,17 @@
         android:id="@+id/iv0"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:srcCompat="@drawable/skcap"
-        android:layout_marginTop="63dp"
+        app:srcCompat="@drawable/sklogo"
+        android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <TextView
+
+        android:layout_marginTop="20dp"
         android:id="@+id/tv0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:text="SK Wyverns SHOP"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
@@ -37,19 +42,21 @@
         android:ems="10"
         android:hint="ID"
         android:inputType="textPersonName"
-
+        android:textSize="@dimen/text_medium"
         android:layout_below="@+id/tv0"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" />
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:id="@+id/et1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:layout_below="@+id/et0"
+        android:textSize="@dimen/text_medium"
         android:layout_alignStart="@+id/et0" />
 
 
@@ -59,17 +66,19 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:onClick="LoginClick"
-        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:background="@drawable/my_button"
         android:layout_alignBaseline="@+id/btn1"
         android:layout_alignBottom="@+id/btn1"
         android:layout_alignStart="@+id/iv0" />
     <Button
         android:id="@+id/btn1"
+        android:textColor="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
         android:onClick="RegisterClick"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/my_button"
         android:layout_below="@+id/et1"
         android:layout_alignEnd="@+id/et1"
         android:layout_marginTop="16dp" />
