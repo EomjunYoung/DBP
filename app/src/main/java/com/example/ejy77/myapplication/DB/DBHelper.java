@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper
 
         initStringBuilder();
         sb.append("CREATE TABLE IF NOT EXISTS UsersInfo( ");
-                sb.append("name VARCHAR(20), ");
+        sb.append("name VARCHAR(20), ");
         sb.append("id VARCHAR(20) PRIMARY KEY NOT NULL. ");
         sb.append("pwd VARCHAR(20) NOT NULL, ");
         sb.append("email VARCHAR(30), ");
@@ -42,19 +42,31 @@ public class DBHelper extends SQLiteOpenHelper
 
         db.execSQL(sb.toString());
 
+        initStringBuilder();
+
+        sb.append("CREATE TABLE IF NOT EXISTS SKshop(");
+        sb.append("ItemId VARCHAR(20) PRIMARY KEY, ");
+        sb.append("ItemName VARCHAR(30), ");
+        sb.append("ItemNation VARCHAR(20), ");
+        sb.append("ItemPrice VARCHAR(20), ");
+        sb.append("ItemPoint VARCHAR(20),");
+        sb.append("ItemPicture BLOB)");
+
+        db.execSQL(sb.toString());
+
 
     }
 
     public void UsersInfoInsert(String name, String id, String pwd, String email, String sex, String birth)
-    {
-        initStringBuilder();
-        SQLiteDatabase db = getWritableDatabase();
-        sb.append("INSERT INTO UsersInfo VALUES(");
-        sb.append("'" + name + "', '" + id + "', '" + pwd + "', '" + email + "', '" + sex + "', '" + birth + "'");
-        sb.append(")");
-        db.execSQL(sb.toString());
-        db.close();
-    }
+{
+    initStringBuilder();
+    SQLiteDatabase db = getWritableDatabase();
+    sb.append("INSERT INTO UsersInfo VALUES(");
+    sb.append("'" + name + "', '" + id + "', '" + pwd + "', '" + email + "', '" + sex + "', '" + birth + "'");
+    sb.append(")");
+    db.execSQL(sb.toString());
+    db.close();
+}
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
