@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/login_bg"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    tools:context="com.example.ejy77.myapplication.MemberRegister">
+
+
+
+    <EditText
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:id="@+id/etname"
+        android:layout_width="match_parent"
+        android:hint="사용하실 닉네임을 입력하세요."
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/text_medium" />
+
+
+    <EditText
+        android:textColorHint="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:id="@+id/etid"
+        android:layout_width="match_parent"
+        android:hint="사용하실 id를 입력하세요."
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/text_medium" />
+
+
+
+    <EditText
+        android:textColorHint="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:id="@+id/etpwd"
+        android:hint="사용하실 password를 입력하세요"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textSize="@dimen/text_medium" />
+
+
+    <EditText
+        android:textColorHint="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:id="@+id/etemail"
+        android:hint="사용하실 e-mail을 입력하세요"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textSize="@dimen/text_medium" />
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:textColor="#FFFFFF"
+        android:text="본인의 성별을 선택해주세요."
+        android:textSize="9pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+
+        <RadioButton
+            android:id="@+id/rb1"
+            android:text="남"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rb2"
+            android:text="여"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RadioGroup>
+
+</LinearLayout>
+
+
+
 
 </LinearLayout>
