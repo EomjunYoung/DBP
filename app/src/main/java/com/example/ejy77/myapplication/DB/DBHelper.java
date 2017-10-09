@@ -39,7 +39,6 @@ public class DBHelper extends SQLiteOpenHelper
         sb.append("pwd VARCHAR(20) NOT NULL, ");
         sb.append("email VARCHAR(30), ");
         sb.append("sex VARCHAR(10), ");
-        sb.append("birth VARCHAR(20))");
 
         db.execSQL(sb.toString());
 
