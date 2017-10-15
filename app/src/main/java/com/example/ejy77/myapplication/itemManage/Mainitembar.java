@@ -1,4 +1,4 @@
-package com.example.ejy77.myapplication;
+package com.example.ejy77.myapplication.itemManage;
 
 import android.graphics.drawable.Drawable;
 
