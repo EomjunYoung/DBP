@@ -9,10 +9,10 @@ import android.graphics.drawable.Drawable;
  * Created by ejy77 on 2017-10-04.
  */
 
-public class DBHelper extends SQLiteOpenHelper
+    public class DBHelper extends SQLiteOpenHelper
 
 
-{
+    {
 
     private Context context;
     private StringBuilder sb = new StringBuilder();
@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper
 
 
         initStringBuilder();
-        sb.append("CREATE TABLE IF NOT EXISTS UsersInfo( ");
+        sb.append("CREATE TABLE IF NOT EXISTS UsersInfor( ");
         sb.append("name VARCHAR(20), ");
         sb.append("id VARCHAR(20) PRIMARY KEY NOT NULL. ");
         sb.append("pwd VARCHAR(20) NOT NULL, ");
@@ -44,12 +44,12 @@ public class DBHelper extends SQLiteOpenHelper
 
         initStringBuilder();
 
-        sb.append("CREATE TABLE IF NOT EXISTS SKshop(");
+        sb.append("CREATE TABLE IF NOT EXISTS SKshops(");
         sb.append("ItemId VARCHAR(20) PRIMARY KEY, ");
         sb.append("ItemName VARCHAR(30), ");
         sb.append("ItemNation VARCHAR(20), ");
         sb.append("ItemPrice VARCHAR(20), ");
-        sb.append("ItemPoint VARCHAR(20),");
+        sb.append("ItemNumber VARCHAR(20),");
         sb.append("ItemPicture BLOB)");
 
         db.execSQL(sb.toString());
@@ -57,27 +57,26 @@ public class DBHelper extends SQLiteOpenHelper
 
     }
 
-    public void UsersInfoInsert(String name, String id, String pwd, String email, String sex, String birth)
-{
-    initStringBuilder();
-    SQLiteDatabase db = getWritableDatabase();
-    sb.append("INSERT INTO UsersInfo VALUES(");
-    sb.append("'" + name + "', '" + id + "', '" + pwd + "', '" + email + "', '" + sex + "', '" + birth + "'");
-    sb.append(")");
-    db.execSQL(sb.toString());
-    db.close();
+    public void UsersInfoInsert(String name, String id, String pwd, String email, String sex)
+        {
+            initStringBuilder();
+            SQLiteDatabase db = getWritableDatabase();
+            sb.append("INSERT INTO UsersInfo VALUES(");
+            sb.append("'" + name + "', '" + id + "', '" + pwd + "', '" + email + "', '" + sex + "'");
+            sb.append(")");
+            db.execSQL(sb.toString());
+            db.close();
 }
 
 
-    public void SKshopInsert(String id, String name, String nation, String price, String point, byte[] image)
+    public void SKshopInsert(String id, String name, String nation, String price, String number, byte[] image)
     {
         initStringBuilder();
         SQLiteDatabase db = getWritableDatabase();
         sb.append("INSERT INTO SKshop VALUES( ");
-        sb.append("'"+ id +"', '"+ name +"', '"+ nation +"', '"+ price +"', '"+ image +"'");
+        sb.append("'"+ id +"', '"+ name +"', '"+ nation +"', '"+ price +"','"  + number + "' ,'"+ image +"'");
         sb.append(")");
         db.execSQL(sb.toString());
-        db.close();
     }
 
     @Override

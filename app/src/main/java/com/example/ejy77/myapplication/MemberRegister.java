@@ -63,7 +63,7 @@ public class MemberRegister extends AppCompatActivity
                 String email = etemail.getText().toString();
                 String sex = rb.getText().toString();
 
-                dbHelper.UsersInfoInsert(name, id, pwd, email, sex, null);
+                dbHelper.UsersInfoInsert(name, id, pwd, email, sex);
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
 
