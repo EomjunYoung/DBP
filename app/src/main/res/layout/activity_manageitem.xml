@@ -15,7 +15,7 @@
         android:layout_height="wrap_content" />
 
 
-    <TextView
+    <EditText
 
         android:text="id"
         android:textSize="10pt"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <EditText
 
         android:text="name"
         android:textSize="10pt"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <EditText
 
         android:text="nation"
         android:textSize="10pt"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <EditText
 
         android:text="price"
         android:textSize="10pt"
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <EditText
 
         android:text="number"
         android:textSize="10pt"
@@ -57,6 +57,7 @@
 
     <ImageView
         android:id="@+id/itemPicture"
+        android:src="@drawable/cap1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     
