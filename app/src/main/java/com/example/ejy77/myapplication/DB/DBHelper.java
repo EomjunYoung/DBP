@@ -38,7 +38,7 @@ import android.graphics.drawable.Drawable;
         sb.append("id VARCHAR(20) PRIMARY KEY NOT NULL. ");
         sb.append("pwd VARCHAR(20) NOT NULL, ");
         sb.append("email VARCHAR(30), ");
-        sb.append("sex VARCHAR(10), ");
+        sb.append("sex VARCHAR(10)) ");
 
         db.execSQL(sb.toString());
 
@@ -77,6 +77,7 @@ import android.graphics.drawable.Drawable;
         sb.append("'"+ id +"', '"+ name +"', '"+ nation +"', '"+ price +"','"  + number + "' ,'"+ image +"'");
         sb.append(")");
         db.execSQL(sb.toString());
+        db.close();
     }
 
     @Override

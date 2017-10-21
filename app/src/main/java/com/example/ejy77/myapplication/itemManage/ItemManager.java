@@ -80,9 +80,6 @@ public class ItemManager extends AppCompatActivity
             }
         });
 
-
-
-
     }
 
     public byte[] drawabletobyte(Drawable drawable)
