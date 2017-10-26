@@ -14,10 +14,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
     <EditText
 
-        android:text="id"
+        android:text="name"
         android:textSize="10pt"
         android:id="@+id/itemId"
         android:layout_width="match_parent"
@@ -25,7 +30,7 @@
 
     <EditText
 
-        android:text="name"
+        android:text="id"
         android:textSize="10pt"
         android:id="@+id/itemName"
         android:layout_width="match_parent"
@@ -33,7 +38,7 @@
 
     <EditText
 
-        android:text="nation"
+        android:text="pwd"
         android:textSize="10pt"
         android:id="@+id/itemNation"
         android:layout_width="match_parent"
@@ -41,7 +46,7 @@
 
     <EditText
 
-        android:text="price"
+        android:text="email"
         android:textSize="10pt"
         android:id="@+id/itemPrice"
         android:layout_width="match_parent"
@@ -49,18 +54,21 @@
 
     <EditText
 
-        android:text="number"
+        android:text="sex"
         android:textSize="10pt"
         android:id="@+id/itemNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/itemPicture"
-        android:src="@drawable/cap1"
+
+
+
+    <TextView
+
+        android:id="@+id/select"
+        android:text="dd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    
     
 
 
