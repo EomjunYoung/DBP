@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity
     DBHelper dbHelper;
     SQLiteDatabase db;
     static String userid;
-    String sql;
+    String sql = null;
     Cursor cursor;
 
     @Override
@@ -35,12 +35,14 @@ public class Login extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         btn0 = (Button)findViewById(R.id.btn0);
         btn1 = (Button)findViewById(R.id.btn1);
         et0 = (EditText)findViewById(R.id.et0);
         et1 = (EditText)findViewById(R.id.et1);
-        dbHelper = new DBHelper(getApplicationContext(), "logindb.db", null, 1);
+        dbHelper = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
 
+        db = dbHelper.getWritableDatabase();
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,8 @@ public class Login extends AppCompatActivity
 
                 String id = et0.getText().toString();
                 String pwd = et1.getText().toString();
+                String Cid = null;
+                String Cpwd = null;
 
                 if(id.length() == 0 || pwd.length() ==0 )
                 {
@@ -55,24 +59,51 @@ public class Login extends AppCompatActivity
                     return;
                 }
 
-                sql = "SELECT id FROM UsersInfor WHERE id='" + id + "'";
-                cursor = db.rawQuery(sql, null);
 
-                if(cursor.getCount() != 1) // getCount = 레코드 수
+                sql = "SELECT * FROM UsersInfor";
+                db = dbHelper.getReadableDatabase();
+                cursor = db.rawQuery(sql, null);
+                int count = cursor.getCount();//튜플수
+
+
+                for(int i=0; i<count; i++)
+                {
+
+
+                    cursor.moveToNext();
+                    Cid = cursor.getString(1);
+                    Cpwd = cursor.getString(2);
+
+
+
+                }
+
+                if ( (id==Cid) && (pwd==Cpwd))
+                {
+
+                    Intent intent = new Intent(getApplicationContext(), Solditem.class);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
+
+
+                }
+
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "정보불일치", Toast.LENGTH_LONG).show();
+                }
+
+                cursor.close();
+
+
+                /*if(cursor.getCount() != 1) // getCount = 레코드 수
                 {
                     Toast.makeText(getApplicationContext(), "존재하지 않는 아이디입니다", Toast.LENGTH_LONG).show();
                     return;
 
-                }
+                }*/
 
 
-
-
-
-
-
-                Intent intent = new Intent(getApplicationContext(), Solditem.class);
-                startActivity(intent);
 
             }
         });
