@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.itemManage.Solditem;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by ejy77 on 2017-10-04.
@@ -60,29 +63,22 @@ public class Login extends AppCompatActivity
                 }
 
 
-                sql = "SELECT * FROM UsersInfor";
+                sql = "SELECT * FROM UsersInfor WHERE id="+"'"+id+"'";
                 db = dbHelper.getReadableDatabase();
                 cursor = db.rawQuery(sql, null);
                 int count = cursor.getCount();//튜플수
-
-
-                for(int i=0; i<count; i++)
-                {
-
-
-                    cursor.moveToNext();
-                    Cid = cursor.getString(1);
-                    Cpwd = cursor.getString(2);
-
-
-
+                if(count !=0 ){
+                    cursor.moveToFirst();
+                    Cid = cursor.getString(cursor.getColumnIndex("id"));
+                    Cpwd = cursor.getString(cursor.getColumnIndex("pwd"));
                 }
 
-                if ( (id==Cid) && (pwd==Cpwd))
+                if ( (id.equals(Cid)) && (pwd.equals(Cpwd)))
                 {
 
-                    Intent intent = new Intent(getApplicationContext(), Solditem.class);
+                    Intent intent = new Intent(getApplication(), Solditem.class);
                     startActivity(intent);
+                    finish();
                     Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
 
 

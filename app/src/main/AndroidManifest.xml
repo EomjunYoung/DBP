@@ -22,11 +22,15 @@
         <activity android:name=".MemberRegister"
         android:screenOrientation="portrait"/>
 
-        <activity android:name="itemManage.ItemManager"
+        <activity android:name=".itemManage.ItemManager"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="itemManage.Solditem"
+        <activity android:name=".itemManage.Solditem"
             android:screenOrientation="portrait"/>
+
+
+
+
 
     </application>
 
