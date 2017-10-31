@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity
 
     Button btn0, btn1;
     EditText et0, et1;
-    DBHelper dbHelper;
+    DBHelper dbHelperUser;
     SQLiteDatabase db;
     static String userid;
     String sql = null;
@@ -43,9 +43,7 @@ public class Login extends AppCompatActivity
         btn1 = (Button)findViewById(R.id.btn1);
         et0 = (EditText)findViewById(R.id.et0);
         et1 = (EditText)findViewById(R.id.et1);
-        dbHelper = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
-
-        db = dbHelper.getWritableDatabase();
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb.db", null, 1);
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +62,19 @@ public class Login extends AppCompatActivity
 
 
                 sql = "SELECT * FROM UsersInfor WHERE id="+"'"+id+"'";
-                db = dbHelper.getReadableDatabase();
+                db = dbHelperUser.getReadableDatabase();
                 cursor = db.rawQuery(sql, null);
                 int count = cursor.getCount();//튜플수
-                if(count !=0 ){
-                    cursor.moveToFirst();
-                    Cid = cursor.getString(cursor.getColumnIndex("id"));
-                    Cpwd = cursor.getString(cursor.getColumnIndex("pwd"));
+
+                for(int i=0; i<count; i++) {
+                    if (count != 0) {
+                        cursor.moveToFirst();
+                        Cid = cursor.getString(cursor.getColumnIndex("id"));
+                        Cpwd = cursor.getString(cursor.getColumnIndex("pwd"));
+                    }
+
+                    Log.d("id", Cid);
+                    Log.d("id", Cpwd);
                 }
 
                 if ( (id.equals(Cid)) && (pwd.equals(Cpwd)))

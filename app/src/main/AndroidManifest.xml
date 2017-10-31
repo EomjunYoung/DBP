@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.ejy77.myapplication.Login">
+        <activity android:name="com.example.ejy77.myapplication.itemManage.ItemManager">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,11 +22,10 @@
         <activity android:name=".MemberRegister"
         android:screenOrientation="portrait"/>
 
-        <activity android:name=".itemManage.ItemManager"
-            android:screenOrientation="portrait"/>
-
         <activity android:name=".itemManage.Solditem"
             android:screenOrientation="portrait"/>
+
+
 
 
 

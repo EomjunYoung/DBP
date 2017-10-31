@@ -3,6 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+
+
 
     <Button
         android:id="@+id/btn1"
@@ -14,54 +23,127 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+
     <Button
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@+id/btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
 
     <EditText
 
-        android:text="name"
+        android:text="Itemid"
         android:textSize="10pt"
-        android:id="@+id/itemId"
+        android:id="@+id/itemid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
 
-        android:text="id"
+        android:text="Itemname"
         android:textSize="10pt"
-        android:id="@+id/itemName"
+        android:id="@+id/itemname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
 
-        android:text="pwd"
+        android:text="Itemnation"
         android:textSize="10pt"
-        android:id="@+id/itemNation"
+        android:id="@+id/itemnation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
 
-        android:text="email"
+        android:text="Itemprice"
         android:textSize="10pt"
-        android:id="@+id/itemPrice"
+        android:id="@+id/itemprice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
 
-        android:text="sex"
+        android:text="Itemnumber"
         android:textSize="10pt"
-        android:id="@+id/itemNumber"
+        android:id="@+id/itemnumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
 
 
+            <EditText
+
+                android:text="Username"
+                android:textSize="10pt"
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+
+                android:text="Userid"
+                android:textSize="10pt"
+                android:id="@+id/userid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+
+                android:text="Userpwd"
+                android:textSize="10pt"
+                android:id="@+id/userpwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+
+                android:text="Useremail"
+                android:textSize="10pt"
+                android:id="@+id/useremail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+
+                android:text="Usersex"
+                android:textSize="10pt"
+                android:id="@+id/usersex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <TextView
 

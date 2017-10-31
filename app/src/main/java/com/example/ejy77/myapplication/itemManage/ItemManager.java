@@ -20,6 +20,13 @@ import com.example.ejy77.myapplication.R;
 
 import java.io.ByteArrayOutputStream;
 
+import static android.R.attr.name;
+import static com.example.ejy77.myapplication.R.id.itemid;
+import static com.example.ejy77.myapplication.R.id.itemname;
+import static com.example.ejy77.myapplication.R.id.itemnation;
+import static com.example.ejy77.myapplication.R.id.itemnumber;
+import static com.example.ejy77.myapplication.R.id.itemprice;
+
 
 /**
  * Created by ejy77 on 2017-10-16.
@@ -32,38 +39,45 @@ public class ItemManager extends AppCompatActivity
     Button btn1;
     Button btn2;
     Button btn3;
-    TextView itemId;
-    TextView itemName;
-    TextView itemNation;
-    TextView itemPrice;
-    TextView itemNumber;
-    ImageView itemPicture;
+    Button btn4;
+
+    TextView Itemid, Itemname, Itemnation, Itemprice, Itemnumber;
+    TextView Username, Userid, Userpwd, Useremail, Usersex;
+    byte[] bytes;
     TextView select;
     //private byte[] itemPicture;
     //drawable에 있는 이미지를 byte[]형으로 변경한 이후에 저장하기위해
-    DBHelper dbHelper;
+    DBHelper dbHelperItem, dbHelperUser;
 
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             setContentView(R.layout.activity_manageitem);
 
-        dbHelper = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
+        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb.db", null, 1);
 
 
 
         select = (TextView)findViewById(R.id.select);
-        itemId = (TextView)findViewById(R.id.itemId);
-        itemName = (TextView)findViewById(R.id.itemName);
-        itemNation = (TextView)findViewById(R.id.itemNation);
-        itemPrice = (TextView)findViewById(R.id.itemPrice);
-        itemNumber = (TextView)findViewById(R.id.itemNumber);
+        Itemid = (TextView)findViewById(R.id.itemid);
+        Itemname = (TextView)findViewById(R.id.itemname);
+        Itemnation = (TextView)findViewById(R.id.itemnation);
+        Itemprice = (TextView)findViewById(R.id.itemprice);
+        Itemnumber = (TextView)findViewById(R.id.itemnumber);
+
+        Username = (TextView)findViewById(R.id.username);
+        Userid = (TextView)findViewById(R.id.userid);
+        Userpwd = (TextView)findViewById(R.id.userpwd);
+        Useremail = (TextView)findViewById(R.id.useremail);
+        Usersex = (TextView)findViewById(R.id.usersex);
 
         btn1 = (Button)findViewById(R.id.btn1);
         btn2 = (Button)findViewById(R.id.btn2);
         btn3 = (Button)findViewById(R.id.btn3);
+            btn4 = (Button)findViewById(R.id.btn4);
 
 
 
@@ -74,30 +88,33 @@ public class ItemManager extends AppCompatActivity
 
 
 
-                String id = itemId.getText().toString();
-                String name = itemName.getText().toString();
-                String nation = itemNation.getText().toString();
-                String price = itemPrice.getText().toString();
-                String number = itemNumber.getText().toString();
+                String id = Itemid.getText().toString();
+                String name = Itemname.getText().toString();
+                String nation = Itemnation.getText().toString();
+                String price = Itemprice.getText().toString();
+                String number = Itemnumber.getText().toString();
                 byte[] bytes = drawabletobyte(getResources().getDrawable(R.drawable.cap1));
 
-                dbHelper.SKshopInsert(id, name, nation, price, number, null);
+                dbHelperItem.SKshopInsert(id, name, nation, price, number, null);
 
 
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
 
-                SQLiteDatabase db = dbHelper.getReadableDatabase();
+                SQLiteDatabase db = dbHelperUser.getReadableDatabase();
                 String sql = "select * from UsersInfor";
                 Cursor cursor = db.rawQuery(sql, null);
-                while(cursor.moveToNext())
-                {
+                int count = cursor.getCount();
+                cursor.moveToFirst();
+
+
+                for(int i=0; i<count-2; i++) {
 
                     String name = cursor.getString(0);
                     String id = cursor.getString(1);
@@ -105,11 +122,12 @@ public class ItemManager extends AppCompatActivity
                     String email = cursor.getString(3);
                     String sex = cursor.getString(4);
 
-                    String moon = name + id + pwd + email + sex;
-
-                    select.setText(moon);
+                    select.setText(name + id + pwd+ email + sex);
+                    cursor.moveToNext();
 
                 }
+
+
 
                 db.close();
 
@@ -122,13 +140,45 @@ public class ItemManager extends AppCompatActivity
             public void onClick(View view) {
 
 
-                String name = itemId.getText().toString();
-                String id = itemName.getText().toString();
-                String pwd = itemNation.getText().toString();
-                String email = itemPrice.getText().toString();
-                String sex = itemNumber.getText().toString();
+                String name = Username.getText().toString();
+                String id = Userid.getText().toString();
+                String pwd = Userpwd.getText().toString();
+                String email = Useremail.getText().toString();
+                String sex = Usersex.getText().toString();
 
-                dbHelper.UsersInfoInsert(name, id, pwd, email, sex);
+                dbHelperUser.UsersInfoInsert(name, id, pwd, email, sex);
+
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                SQLiteDatabase db = dbHelperItem.getReadableDatabase();
+                String sql = "select * from SKshops";
+                Cursor cursor = db.rawQuery(sql, null);
+
+                while(cursor.moveToNext())
+                {
+
+                    String id = cursor.getString(0);
+                    String name = cursor.getString(1);
+                    String nation = cursor.getString(2);
+                    String price = cursor.getString(3);
+                    String number = cursor.getString(4);
+
+                    String moon = id + name + nation + price + number;
+
+                    select.setText(moon);
+
+                }
+
+
+                db.close();
+
 
             }
         });
