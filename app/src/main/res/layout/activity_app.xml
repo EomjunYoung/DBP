@@ -14,10 +14,10 @@
 
         <Button
             android:id="@+id/btn1"
-            android:layout_width="wrap_content"
+            android:layout_width="175dp"
             android:layout_height="84dp"
             android:layout_gravity="bottom"
-            android:layout_weight="1"
+            android:layout_weight="0.53"
             android:background="@drawable/my_button"
             android:text="item Purchase"
             android:textColor="@android:color/white" />
@@ -27,7 +27,7 @@
             android:layout_width="186dp"
             android:layout_height="84dp"
             android:layout_gravity="bottom"
-            android:layout_weight="0.1"
+            android:layout_weight="0.45"
             android:background="@drawable/my_button"
             android:text="item Search"
             android:textColor="@android:color/white" />
@@ -48,7 +48,7 @@
             android:background="@drawable/my_button"
             android:id="@+id/btn3"
             android:layout_gravity="bottom"
-            android:layout_width="wrap_content"
+            android:layout_width="175dp"
             android:layout_height="84dp"
             android:text="My page"
             android:layout_weight="0.53" />
@@ -58,7 +58,7 @@
             android:background="@drawable/my_button"
             android:id="@+id/btn4"
             android:layout_gravity="bottom"
-            android:layout_width="wrap_content"
+            android:layout_width="186dp"
             android:layout_height="84dp"
             android:text="Community"
             android:layout_weight="0.45" />

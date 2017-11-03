@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity
                 if ( (id.equals(Cid)) && (pwd.equals(Cpwd)))
                 {
 
-                    Intent intent = new Intent(getApplication(), Solditem.class);
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
                     startActivity(intent);
                     finish();
                     Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
