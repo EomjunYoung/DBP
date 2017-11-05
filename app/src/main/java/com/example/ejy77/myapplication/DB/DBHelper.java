@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.Toast;
@@ -107,6 +108,31 @@ import static android.R.attr.track;
         {
             e.printStackTrace();
         }
+    }
+
+
+    // 이미지를 byte형식으로 저장할땐 compileStatement를 통해 해야 byte가 정상적으로 잘 저장됨.
+    public void SKshopImageInsert(String id, String name, String nation, String price, String number, byte[] image)
+    {
+        initStringBuilder();
+        try{
+            SQLiteDatabase db = getWritableDatabase();
+            SQLiteStatement p = db.compileStatement("INSERT INTO SKshops(ItemId, ItemName, ItemNation, ItemPrice, ItemNumber,ItemPicture) Values(?,?,?,?,?,?)");
+            p.bindString(1, id);
+            p.bindString(2, name);
+            p.bindString(3, nation);
+            p.bindString(4, price);
+            p.bindString(5, number);
+            p.bindBlob(6, image);
+            p.execute();
+
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public void shopSelect()

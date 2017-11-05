@@ -43,6 +43,7 @@ public class ItemManager extends AppCompatActivity
 
     TextView Itemid, Itemname, Itemnation, Itemprice, Itemnumber;
     TextView Username, Userid, Userpwd, Useremail, Usersex;
+    ImageView testiv;
     byte[] bytes;
     TextView select;
     //private byte[] itemPicture;
@@ -77,7 +78,8 @@ public class ItemManager extends AppCompatActivity
         btn1 = (Button)findViewById(R.id.btn1);
         btn2 = (Button)findViewById(R.id.btn2);
         btn3 = (Button)findViewById(R.id.btn3);
-            btn4 = (Button)findViewById(R.id.btn4);
+        btn4 = (Button)findViewById(R.id.btn4);
+        testiv = (ImageView)findViewById(R.id.testiv);
 
 
 
@@ -93,9 +95,10 @@ public class ItemManager extends AppCompatActivity
                 String nation = Itemnation.getText().toString();
                 String price = Itemprice.getText().toString();
                 String number = Itemnumber.getText().toString();
-                byte[] bytes = drawabletobyte(getResources().getDrawable(R.drawable.cap1));
+                byte[] bytes = getByteArrayFromDrawable(getResources().getDrawable(R.drawable.cap1));
 
-                dbHelperItem.SKshopInsert(id, name, nation, price, number, null);
+               // dbHelperItem.SKshopInsert(id, name, nation, price, number, null);
+               dbHelperItem.SKshopImageInsert(id, name, nation, price, number, bytes);
 
 
             }
@@ -169,10 +172,13 @@ public class ItemManager extends AppCompatActivity
                     String nation = cursor.getString(2);
                     String price = cursor.getString(3);
                     String number = cursor.getString(4);
+                    byte[] bytes = cursor.getBlob(5);
 
                     String moon = id + name + nation + price + number;
+                    Bitmap bitmap = bytetobitmap(bytes);
 
                     select.setText(moon);
+                    testiv.setImageBitmap(bitmap);
 
                 }
 
@@ -185,7 +191,7 @@ public class ItemManager extends AppCompatActivity
 
     }
 
-    public byte[] drawabletobyte(Drawable drawable)
+  /*  public byte[] drawabletobyte(Drawable drawable)
     {
         ByteArrayOutputStream byteArrayOutputStream;
         byte[] bytes;
@@ -198,5 +204,22 @@ public class ItemManager extends AppCompatActivity
         //bitmap2 = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
 
         return bytes;
+    }*/
+
+    public byte[] getByteArrayFromDrawable(Drawable d) {
+        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] data = stream.toByteArray();
+
+        return data;
+    }
+
+
+
+    public Bitmap bytetobitmap(byte[] bytes)
+    {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return bitmap;
     }
 }
