@@ -10,54 +10,60 @@ public class Mainitembar
 {
 
 
-    private Drawable itemimage;
-    private String itemname;
-    private String itemprice;
-    private String itempoint;
-    private String itemexplain;
+    private String id;
+    private String name;
+    private String nation;
+    private String price;
+    private String number;
+    private byte[] image;
 
-
-    public Drawable getItemimage() {
-        return itemimage;
+    public String getId() {
+        return id;
     }
 
-    public void setItemimage(Drawable itemimage) {
-        this.itemimage = itemimage;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getItemname() {
-        return itemname;
+    public String getName() {
+        return name;
     }
 
-    public void setItemname(String itemname) {
-        this.itemname = itemname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getItemprice() {
-        return itemprice;
+    public String getNation() {
+        return nation;
     }
 
-    public void setItemprice(String itemprice) {
-        this.itemprice = itemprice;
+    public void setNation(String nation) {
+        this.nation = nation;
     }
 
-    public String getItempoint() {
-        return itempoint;
+    public String getPrice() {
+        return price;
     }
 
-    public void setItempoint(String itempoint) {
-        this.itempoint = itempoint;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getItemexplain() {
-        return itemexplain;
+    public String getNumber() {
+        return number;
     }
 
-    public void setItemexplain(String itemexplain) {
-        this.itemexplain = itemexplain;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
 
 }

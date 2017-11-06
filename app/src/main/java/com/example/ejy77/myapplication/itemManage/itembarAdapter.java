@@ -1,17 +1,24 @@
 package com.example.ejy77.myapplication.itemManage;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.R;
 
 import java.util.ArrayList;
+
+import static com.example.ejy77.myapplication.R.id.btn1;
 
 /**
  * Created by ejy77 on 2017-10-15.
@@ -19,6 +26,9 @@ import java.util.ArrayList;
 
 public class itembarAdapter extends BaseAdapter
 {
+
+
+
 
     private ArrayList<Mainitembar> Mainitembarlist = new ArrayList<Mainitembar>();
 
@@ -58,33 +68,52 @@ public class itembarAdapter extends BaseAdapter
         }
 
 
-        ImageView iconImageView = (ImageView)convertView.findViewById(R.id.iv1);
-        TextView nameTextView = (TextView)convertView.findViewById(R.id.tv1);
-        TextView priceTextView = (TextView)convertView.findViewById(R.id.tv2);
-        TextView pointTextView = (TextView)convertView.findViewById(R.id.tv3);
-        TextView explainTextView = (TextView)convertView.findViewById(R.id.tv4);
+        TextView id = (TextView)convertView.findViewById(R.id.itemid);
+        TextView name = (TextView)convertView.findViewById(R.id.itemname);
+        TextView nation = (TextView)convertView.findViewById(R.id.itemnation);
+        TextView price = (TextView)convertView.findViewById(R.id.itemprice);
+        TextView number = (TextView)convertView.findViewById(R.id.itemnumber);
+        ImageView image = (ImageView)convertView.findViewById(R.id.itemimage);
 
         Mainitembar mainitembar = Mainitembarlist.get(position);
 
-        iconImageView.setImageDrawable(mainitembar.getItemimage());
-        nameTextView.setText(mainitembar.getItemname());
-        priceTextView.setText(mainitembar.getItemprice());
-        pointTextView.setText(mainitembar.getItempoint());
-        explainTextView.setText(mainitembar.getItemexplain());
+        name.setText(mainitembar.getName());
+        nation.setText(mainitembar.getNation());
+        price.setText(mainitembar.getPrice());
+        number.setText(mainitembar.getNumber());
+        //image.setImageDrawable(mainitembar.getImage()); byte로 되어있으므로 넣을때 drawable 반환해서 넣기
+
+        Button btn1 = (Button)convertView.findViewById(R.id.btn1);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                DBHelper dbHelperItem = new DBHelper(context.getApplicationContext(), "itemdb.db", null, 1);
+                SQLiteDatabase writeDB = dbHelperItem.getWritableDatabase();
+                SQLiteDatabase readDB = dbHelperItem.getReadableDatabase();
+
+                StringBuilder sb = new StringBuilder();
+
+
+            }
+        });
 
         return convertView;
 
 
     }
 
-    public void addItem(Drawable image, String name, String price, String point, String explain )
+    public void addItem(String id, String name, String nation, String price, String number, byte[] bytes)
     {
         Mainitembar item = new Mainitembar();
-        item.setItemimage(image);
-        item.setItemname(name);
-        item.setItemprice(price);
-        item.setItempoint(point);
-        item.setItemexplain(explain);
+
+        item.setId(id);
+        item.setName(name);
+        item.setNation(nation);
+        item.setPrice(price);
+        item.setNumber(number);
+        item.setImage(bytes);
 
         Mainitembarlist.add(item);
     }
