@@ -5,6 +5,7 @@ package com.example.ejy77.myapplication.itemManage;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,16 @@ import com.example.ejy77.myapplication.R;
 public class Solditem extends AppCompatActivity
 {
 
+    DBHelper dbHelperItem;
+    SQLiteDatabase db;
+    Cursor cursor;
+    ItemCursorAdapter itemCursorAdapter;
+    ListView listview;
+
+
+    //final String querySelect = String.format( "SELECT FROM * SKshops");
+
+
 
 
     @Override
@@ -35,13 +46,25 @@ public class Solditem extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itembar);
 
+        String sql = "select * from SKshops";
 
-        DBHelper dbHelperItem;
-        SQLiteDatabase db;
-        Cursor cursor;
-        ItemCursorAdapter itemCursorAdapter;
+       listview = (ListView)findViewById(R.id.lv1);
+       dbHelperItem = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
+       db = dbHelperItem.getWritableDatabase();
+       cursor = db.rawQuery(sql, null);
 
-        final  String querySelect = String.format( "SELECT FROM * SKshops");
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+
+                itemCursorAdapter = new ItemCursorAdapter(Solditem.this, cursor, 0);
+                listview.setAdapter(itemCursorAdapter);
+
+
+            }
+        });
+
+
 
 
 

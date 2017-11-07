@@ -2,6 +2,8 @@ package com.example.ejy77.myapplication.itemManage;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +22,13 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 public class ItemCursorAdapter extends CursorAdapter
 {
 
+    private LayoutInflater cursorInflater;
 
-    public ItemCursorAdapter(Context context, Cursor c) {
-        super(context, c);
+    public ItemCursorAdapter(Context context, Cursor c, int flag) {
+
+        super(context, c, flag);
+        cursorInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
@@ -46,11 +52,27 @@ public class ItemCursorAdapter extends CursorAdapter
         TextView tvnumber = (TextView)view.findViewById(R.id.itemnumber);
         ImageView ivimage = (ImageView)view.findViewById(R.id.itemimage);
 
-        String name = cursor.getString(cursor.getColumnIndex("ItemName"));
-        String nation = cursor.getString(cursor.getColumnIndex("ItemNation"));
-        String price = cursor.getString(cursor.getColumnIndex("ItemPrice"));
-        String number = cursor.getString(cursor.getColumnIndex("ItemNumber"));
-        byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
+
+        int count = cursor.getCount();
+
+        for(int i=0; i<count; i++) {
+
+            cursor.moveToNext();
+            String name = cursor.getString(cursor.getColumnIndex("ItemName"));
+            String nation = cursor.getString(cursor.getColumnIndex("ItemNation"));
+            String price = cursor.getString(cursor.getColumnIndex("ItemPrice"));
+            String number = cursor.getString(cursor.getColumnIndex("ItemNumber"));
+            byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
+            Bitmap bitmap = bytetobitmap(bytes);
+
+
+            tvname.setText(name);
+            tvnation.setText(nation);
+            tvprice.setText(price);
+            tvnumber.setText(number);
+            ivimage.setImageBitmap(bitmap);
+
+        }
 
     }
 
@@ -62,4 +84,10 @@ public class ItemCursorAdapter extends CursorAdapter
         private String number;
         private byte[] image;
 */
+
+    public Bitmap bytetobitmap(byte[] bytes)
+    {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return bitmap;
+    }
 }
