@@ -31,8 +31,6 @@ public class Solditem extends AppCompatActivity
 
     DBHelper dbHelperItem;
     SQLiteDatabase db;
-    Cursor cursor;
-    ItemCursorAdapter itemCursorAdapter;
     ListView listview;
 
 
@@ -51,9 +49,16 @@ public class Solditem extends AppCompatActivity
        listview = (ListView)findViewById(R.id.lv1);
        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
        db = dbHelperItem.getWritableDatabase();
-       cursor = db.rawQuery(sql, null);
+       final Cursor cursor = db.rawQuery(sql, null);
 
-        new Handler().post(new Runnable() {
+
+
+        final ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(Solditem.this, cursor, 0);
+        listview.setAdapter(itemCursorAdapter);
+
+
+
+        /*new Handler().post(new Runnable() {
             @Override
             public void run() {
 
@@ -62,7 +67,7 @@ public class Solditem extends AppCompatActivity
 
 
             }
-        });
+        });*/
 
 
 

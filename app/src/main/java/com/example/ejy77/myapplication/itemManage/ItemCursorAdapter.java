@@ -26,7 +26,7 @@ public class ItemCursorAdapter extends CursorAdapter
 
     public ItemCursorAdapter(Context context, Cursor c, int flag) {
 
-        super(context, c, flag);
+        super(context, c, 0);
         cursorInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -35,13 +35,13 @@ public class ItemCursorAdapter extends CursorAdapter
     public View newView(Context context, Cursor cursor, ViewGroup parent)
             // ListView에 표시될 View를 리턴
     {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View v =layoutInflater.inflate(R.layout.shopitem, parent, false);
-        return v;
+       final LayoutInflater layoutInflater = LayoutInflater.from(context);
+       // View v =layoutInflater.inflate(R.layout.shopitem, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.shopitem, parent, false);
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
+    public void bindView(View view, Context context, final Cursor cursor)
             // //View의 각 위젯들의 속성을 지정하는것이 bindView
     {
 
@@ -54,23 +54,26 @@ public class ItemCursorAdapter extends CursorAdapter
 
 
         int count = cursor.getCount();
+        cursor.moveToFirst();
 
         for(int i=0; i<count; i++) {
 
-            cursor.moveToNext();
+
             String name = cursor.getString(cursor.getColumnIndex("ItemName"));
             String nation = cursor.getString(cursor.getColumnIndex("ItemNation"));
             String price = cursor.getString(cursor.getColumnIndex("ItemPrice"));
             String number = cursor.getString(cursor.getColumnIndex("ItemNumber"));
-            byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
-            Bitmap bitmap = bytetobitmap(bytes);
+           // byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
+            //Bitmap bitmap = bytetobitmap(bytes);
 
 
             tvname.setText(name);
             tvnation.setText(nation);
             tvprice.setText(price);
             tvnumber.setText(number);
-            ivimage.setImageBitmap(bitmap);
+          //  ivimage.setImageBitmap(bitmap);
+
+            cursor.moveToNext();
 
         }
 

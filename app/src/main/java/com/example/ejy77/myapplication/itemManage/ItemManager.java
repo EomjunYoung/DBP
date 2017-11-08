@@ -19,8 +19,11 @@ import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.R;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.R.attr.name;
+import static android.R.id.list;
 import static com.example.ejy77.myapplication.R.id.itemid;
 import static com.example.ejy77.myapplication.R.id.itemname;
 import static com.example.ejy77.myapplication.R.id.itemnation;
@@ -114,10 +117,14 @@ public class ItemManager extends AppCompatActivity
                 String sql = "select * from UsersInfor";
                 Cursor cursor = db.rawQuery(sql, null);
                 int count = cursor.getCount();
+                String str = "";
                 cursor.moveToFirst();
 
 
-                for(int i=0; i<count-2; i++) {
+
+                 for(int i=0; i<count; i++) {
+
+
 
                     String name = cursor.getString(0);
                     String id = cursor.getString(1);
@@ -125,8 +132,13 @@ public class ItemManager extends AppCompatActivity
                     String email = cursor.getString(3);
                     String sex = cursor.getString(4);
 
-                    select.setText(name + id + pwd+ email + sex);
+
+                    str+= "이름 :" + name + "id :" + id + "pwd :" + pwd + "email :"+ email + "sex :" + sex + "\n";
+
                     cursor.moveToNext();
+
+                    select.setText(str);
+
 
                 }
 
@@ -162,10 +174,13 @@ public class ItemManager extends AppCompatActivity
 
                 SQLiteDatabase db = dbHelperItem.getReadableDatabase();
                 String sql = "select * from SKshops";
+                String str = "";
                 Cursor cursor = db.rawQuery(sql, null);
+                cursor.moveToFirst();
 
                 while(cursor.moveToNext())
                 {
+
 
                     String id = cursor.getString(0);
                     String name = cursor.getString(1);
@@ -174,11 +189,13 @@ public class ItemManager extends AppCompatActivity
                     String number = cursor.getString(4);
                     byte[] bytes = cursor.getBlob(5);
 
-                    String moon = id + name + nation + price + number;
+                   str += id + name + nation + price + number;
                     Bitmap bitmap = bytetobitmap(bytes);
 
-                    select.setText(moon);
+                    select.setText(str);
                     testiv.setImageBitmap(bitmap);
+
+                    cursor.moveToNext();
 
                 }
 
