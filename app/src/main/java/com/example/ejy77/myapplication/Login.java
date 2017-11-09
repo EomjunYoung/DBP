@@ -13,9 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ejy77.myapplication.DB.DBHelper;
-import com.example.ejy77.myapplication.itemManage.Solditem;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by ejy77 on 2017-10-04.
@@ -80,7 +77,7 @@ public class Login extends AppCompatActivity
                 if ( (id.equals(Cid)) && (pwd.equals(Cpwd)))
                 {
 
-                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                    Intent intent = new Intent(getApplication(), MainActivity2.class);
                     startActivity(intent);
                     finish();
                     Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
