@@ -89,6 +89,15 @@
         android:id="@+id/itemnumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+     <EditText
+
+         android:text="Item_id"
+         android:id="@+id/_id"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
+
+
         </LinearLayout>
 
 
@@ -131,11 +140,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+
             <EditText
 
                 android:text="Usersex"
                 android:textSize="10pt"
                 android:id="@+id/usersex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+
+                android:text="User,oney"
+                android:textSize="10pt"
+                android:id="@+id/usermoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -44,16 +44,16 @@ public class Solditem extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itembar);
 
-        String sql = "select * from SKshops";
+        String sql = "select * from SKshops2";
 
        listview = (ListView)findViewById(R.id.lv1);
-       dbHelperItem = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
+       dbHelperItem = new DBHelper(this, "itemdb2.db", null, 1);
        db = dbHelperItem.getWritableDatabase();
-       final Cursor cursor = db.rawQuery(sql, null);
+       Cursor cursor = db.rawQuery(sql, null);
 
 
 
-        final ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(Solditem.this, cursor, 0);
+        ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(this, cursor, 0);
         listview.setAdapter(itemCursorAdapter);
 
 

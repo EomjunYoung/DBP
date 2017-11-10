@@ -8,6 +8,14 @@
 
 
 
+    <Button
+
+        android:text="Capture"
+        android:id="@+id/btncapture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
     <org.opencv.android.JavaCameraView
         android:id="@+id/tutorial1_activity_java_surface_view"
         android:layout_height="fill_parent" android:layout_width="fill_parent"

@@ -7,10 +7,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,7 +47,8 @@ public class ItemManager extends AppCompatActivity
     Button btn4;
 
     TextView Itemid, Itemname, Itemnation, Itemprice, Itemnumber;
-    TextView Username, Userid, Userpwd, Useremail, Usersex;
+    TextView Username, Userid, Userpwd, Useremail, Usersex, Usermoney;
+    EditText Item_id;
     ImageView testiv;
     byte[] bytes;
     TextView select;
@@ -60,8 +63,8 @@ public class ItemManager extends AppCompatActivity
 
             setContentView(R.layout.activity_manageitem);
 
-        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb.db", null, 1);
+        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb2.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb2.db", null, 1);
 
 
 
@@ -71,12 +74,14 @@ public class ItemManager extends AppCompatActivity
         Itemnation = (TextView)findViewById(R.id.itemnation);
         Itemprice = (TextView)findViewById(R.id.itemprice);
         Itemnumber = (TextView)findViewById(R.id.itemnumber);
+        Item_id = (EditText)findViewById(R.id._id);
 
         Username = (TextView)findViewById(R.id.username);
         Userid = (TextView)findViewById(R.id.userid);
         Userpwd = (TextView)findViewById(R.id.userpwd);
         Useremail = (TextView)findViewById(R.id.useremail);
         Usersex = (TextView)findViewById(R.id.usersex);
+        Usermoney = (TextView)findViewById(R.id.usermoney);
 
         btn1 = (Button)findViewById(R.id.btn1);
         btn2 = (Button)findViewById(R.id.btn2);
@@ -99,9 +104,10 @@ public class ItemManager extends AppCompatActivity
                 String price = Itemprice.getText().toString();
                 String number = Itemnumber.getText().toString();
                 byte[] bytes = getByteArrayFromDrawable(getResources().getDrawable(R.drawable.cap1));
+                String _id = Item_id.getText().toString();
 
                // dbHelperItem.SKshopInsert(id, name, nation, price, number, null);
-               dbHelperItem.SKshopImageInsert(id, name, nation, price, number, bytes);
+               dbHelperItem.SKshopImageInsert(id, name, nation, price, number, bytes, _id);
 
 
             }
@@ -114,7 +120,7 @@ public class ItemManager extends AppCompatActivity
 
 
                 SQLiteDatabase db = dbHelperUser.getReadableDatabase();
-                String sql = "select * from UsersInfor";
+                String sql = "select * from UsersInfor2";
                 Cursor cursor = db.rawQuery(sql, null);
                 int count = cursor.getCount();
                 String str = "";
@@ -131,9 +137,10 @@ public class ItemManager extends AppCompatActivity
                     String pwd = cursor.getString(2);
                     String email = cursor.getString(3);
                     String sex = cursor.getString(4);
+                    String money = cursor.getString(5);
 
 
-                    str+= "이름 :" + name + "id :" + id + "pwd :" + pwd + "email :"+ email + "sex :" + sex + "\n";
+                    str+= "이름 :" + name + "id :" + id + "pwd :" + pwd + "email :"+ email + "sex :" + sex + "money :" + money + "\n";
 
                     cursor.moveToNext();
 
@@ -160,8 +167,12 @@ public class ItemManager extends AppCompatActivity
                 String pwd = Userpwd.getText().toString();
                 String email = Useremail.getText().toString();
                 String sex = Usersex.getText().toString();
+                String money = Usermoney.getText().toString();
 
-                dbHelperUser.UsersInfoInsert(name, id, pwd, email, sex);
+                dbHelperUser.UsersInfoInsert(name, id, pwd, email, sex, money);
+
+
+
 
             }
         });
@@ -173,7 +184,7 @@ public class ItemManager extends AppCompatActivity
 
 
                 SQLiteDatabase db = dbHelperItem.getReadableDatabase();
-                String sql = "select * from SKshops";
+                String sql = "select * from SKshops2";
                 String str = "";
                 Cursor cursor = db.rawQuery(sql, null);
                 cursor.moveToFirst();
@@ -188,8 +199,9 @@ public class ItemManager extends AppCompatActivity
                     String price = cursor.getString(3);
                     String number = cursor.getString(4);
                     byte[] bytes = cursor.getBlob(5);
+                    String _id = cursor.getString(6);
 
-                   str += id + name + nation + price + number;
+                   str += id + name + nation + price + number +_id;
                     Bitmap bitmap = bytetobitmap(bytes);
 
                     select.setText(str);

@@ -27,7 +27,7 @@ import static android.R.attr.track;
 
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+            super(context, name, factory, 1);
     }
 
 
@@ -44,24 +44,26 @@ import static android.R.attr.track;
 
         try {
 
-            sb.append("CREATE TABLE IF NOT EXISTS UsersInfor( ");
+            sb.append("CREATE TABLE IF NOT EXISTS UsersInfor2( ");
             sb.append("name VARCHAR(20), ");
             sb.append("id VARCHAR(20) PRIMARY KEY NOT NULL, ");
             sb.append("pwd VARCHAR(20) NOT NULL, ");
             sb.append("email VARCHAR(30), ");
-            sb.append("sex VARCHAR(10)) ");
+            sb.append("sex VARCHAR(10), ");
+            sb.append("money VARCHAR(20))");
 
             db.execSQL(sb.toString());
 
             initStringBuilder();
 
-            sb.append("CREATE TABLE IF NOT EXISTS SKshops(");
+            sb.append("CREATE TABLE IF NOT EXISTS SKshops2(");
             sb.append("ItemId VARCHAR(20) PRIMARY KEY, ");
             sb.append("ItemName VARCHAR(30), ");
             sb.append("ItemNation VARCHAR(20), ");
             sb.append("ItemPrice VARCHAR(20), ");
             sb.append("ItemNumber VARCHAR(20),");
-            sb.append("ItemPicture BLOB)");
+            sb.append("ItemPicture BLOB,");
+            sb.append("_id varchar(20))");
 
             db.execSQL(sb.toString());
             Log.d("able", "TABLE 생성완료!!");
@@ -72,13 +74,13 @@ import static android.R.attr.track;
 
     }
 
-    public void UsersInfoInsert(String name, String id, String pwd, String email, String sex)
+    public void UsersInfoInsert(String name, String id, String pwd, String email, String sex, String money)
         {
             initStringBuilder();
             try {
                 SQLiteDatabase db = getWritableDatabase();
-                sb.append("INSERT INTO UsersInfor VALUES(");
-                sb.append("'" + name + "', '" + id + "', '" + pwd + "', '" + email + "', '" + sex + "'");
+                sb.append("INSERT INTO UsersInfor2 VALUES(");
+                sb.append("'" + name + "', '" + id + "', '" + pwd + "', '" + email + "', '" + sex + "', '" + money + "'");
                 sb.append(")");
                 db.execSQL(sb.toString());
                 db.close();
@@ -112,18 +114,19 @@ import static android.R.attr.track;
 
 
     // 이미지를 byte형식으로 저장할땐 compileStatement를 통해 해야 byte가 정상적으로 잘 저장됨.
-    public void SKshopImageInsert(String id, String name, String nation, String price, String number, byte[] image)
+    public void SKshopImageInsert(String id, String name, String nation, String price, String number, byte[] image, String _id)
     {
         initStringBuilder();
         try{
             SQLiteDatabase db = getWritableDatabase();
-            SQLiteStatement p = db.compileStatement("INSERT INTO SKshops(ItemId, ItemName, ItemNation, ItemPrice, ItemNumber,ItemPicture) Values(?,?,?,?,?,?)");
+            SQLiteStatement p = db.compileStatement("INSERT INTO SKshops2(ItemId, ItemName, ItemNation, ItemPrice, ItemNumber,ItemPicture, _id) Values(?,?,?,?,?,?,?)");
             p.bindString(1, id);
             p.bindString(2, name);
             p.bindString(3, nation);
             p.bindString(4, price);
             p.bindString(5, number);
             p.bindBlob(6, image);
+            p.bindString(7, _id);
             p.execute();
 
 
@@ -142,7 +145,7 @@ import static android.R.attr.track;
         try {
 
             SQLiteDatabase db = getReadableDatabase();
-            sb.append("select * from SKshops");
+            sb.append("select * from SKshops2");
             Cursor cursor = db.rawQuery(sb.toString(), null);
             while(cursor.moveToNext())
             {
@@ -194,7 +197,21 @@ import static android.R.attr.track;
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+
+      /*  if( (oldVersion == 1) && (newVersion ==2) ) {
+
+            StringBuffer sb = new StringBuffer();
+            sb.append("ALTER TABLE UsersInfor ADD COLUMN money VARCHAR(20)");
+            db.execSQL(sb.toString());
+
+
+        }
+*/
+
+
+
 
     }
 }

@@ -88,7 +88,7 @@ public class MemberRegister extends AppCompatActivity
                     i++;
                 }
 
-                dbHelperUser.UsersInfoInsert(name, id, pwd, email, sex);
+                dbHelperUser.UsersInfoInsert(name, id, pwd, email, sex, null);
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
 

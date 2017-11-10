@@ -10,8 +10,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.ejy77.myapplication.R;
 
@@ -22,19 +26,25 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 
 
-public class jnisearch extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public class jnisearch extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener
+
+{
 
     private static final String TAG = "opencv";
     private CameraBridgeViewBase mOpenCvCameraView;
     private Mat matInput;
     private Mat matResult;
+    private Button btncapture;
+    private jnisearch jnisearch;
 
     public native void ConvertRGBtoGray(long matAddrInput, long matAddrResult);
+    public native void recog(long matAddrInput, long matAddrResult);
 
 
-    static {
+     static {
         System.loadLibrary("opencv_java3");
         System.loadLibrary("native-lib");
+        System.loadLibrary("main");
     }
 
 
@@ -67,6 +77,25 @@ public class jnisearch extends AppCompatActivity implements CameraBridgeViewBase
         setContentView(R.layout.activity_search);
 
 
+        jnisearch = this;
+        matResult = null;
+        btncapture = (Button)findViewById(R.id.btncapture);
+
+        btncapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(matResult == null)
+                {
+                    Toast.makeText(jnisearch, "error", Toast.LENGTH_SHORT).show();
+                }
+                else{
+
+                }
+
+            }
+        });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //퍼미션 상태 확인
             if (!hasPermissions(PERMISSIONS)) {
@@ -80,6 +109,7 @@ public class jnisearch extends AppCompatActivity implements CameraBridgeViewBase
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         mOpenCvCameraView.setCameraIndex(0); // front-camera(1),  back-camera(0)
+        mOpenCvCameraView.setFocusableInTouchMode(true); // set touch focus
         mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
     }
 
@@ -130,7 +160,7 @@ public class jnisearch extends AppCompatActivity implements CameraBridgeViewBase
         if ( matResult != null ) matResult.release();
         matResult = new Mat(matInput.rows(), matInput.cols(), matInput.type());
 
-        ConvertRGBtoGray(matInput.getNativeObjAddr(), matResult.getNativeObjAddr());
+        recog(matInput.getNativeObjAddr(), matResult.getNativeObjAddr());
 
         return matResult;
     }
@@ -202,5 +232,10 @@ public class jnisearch extends AppCompatActivity implements CameraBridgeViewBase
         builder.create().show();
     }
 
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
+    }
 
 }

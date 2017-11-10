@@ -22,9 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.example.ejy77.myapplication.Recognition.search"
+        <activity android:name="com.example.ejy77.myapplication.itemManage.Solditem"
 
-            android:screenOrientation="landscape"
+
             android:configChanges="keyboardHidden|orientation">
 
             <intent-filter>
@@ -38,6 +38,9 @@
 
         <activity android:name=".MemberRegister"
         android:screenOrientation="portrait"/>
+
+
+
 
 
 
