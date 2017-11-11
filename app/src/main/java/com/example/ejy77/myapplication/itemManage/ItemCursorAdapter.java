@@ -30,7 +30,7 @@ public class ItemCursorAdapter extends CursorAdapter
 
     public ItemCursorAdapter(Context context, Cursor c, int flag) {
 
-        super(context, c, 0);
+        super(context, c, flag);
 
     }
 
@@ -57,13 +57,10 @@ public class ItemCursorAdapter extends CursorAdapter
         ImageView ivimage = (ImageView)view.findViewById(R.id.itemimage);
 
 
-        int count = cursor.getCount();
-        cursor.moveToFirst();
+
+
         Log.d("eom", "1");
 
-        for(int i=0; i<count-1; i++) {
-
-            cursor.moveToNext();
             Log.d("eom", "2");
 
 
@@ -71,8 +68,8 @@ public class ItemCursorAdapter extends CursorAdapter
             String nation = cursor.getString(cursor.getColumnIndexOrThrow("ItemNation"));
             String price = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
             String number = cursor.getString(cursor.getColumnIndexOrThrow("ItemNumber"));
-           // byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
-            //Bitmap bitmap = bytetobitmap(bytes);
+            byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
+            Bitmap bitmap = bytetobitmap(bytes);
 
 
             Log.d("eom", "3");
@@ -81,6 +78,7 @@ public class ItemCursorAdapter extends CursorAdapter
             tvnation.setText(nation);
             tvprice.setText(price);
             tvnumber.setText(number);
+            ivimage.setImageBitmap(bitmap);
             Log.d("eom", "4");
 
             btnpurchase.setOnClickListener(new View.OnClickListener() {
@@ -107,13 +105,6 @@ public class ItemCursorAdapter extends CursorAdapter
 
 
 
-
-
-
-
-
-
-
                 }
             });
 
@@ -121,7 +112,7 @@ public class ItemCursorAdapter extends CursorAdapter
 
 
 
-        }
+
 
     }
 

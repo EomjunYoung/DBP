@@ -32,6 +32,7 @@ public class Solditem extends AppCompatActivity
     DBHelper dbHelperItem;
     SQLiteDatabase db;
     ListView listview;
+    Cursor cursor;
 
 
     //final String querySelect = String.format( "SELECT FROM * SKshops");
@@ -55,6 +56,9 @@ public class Solditem extends AppCompatActivity
 
         ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(this, cursor, 0);
         listview.setAdapter(itemCursorAdapter);
+
+
+        // selectDB();
 
 
 
@@ -97,6 +101,21 @@ public class Solditem extends AppCompatActivity
 
     }
 
+    /*private void selectDB()
+    {
+        dbHelperItem = new DBHelper(Solditem.this, "itemdb2.db", null, 1);
+        db = dbHelperItem.getWritableDatabase();
+        String sql = "select * from SKshops2";
+        cursor = db.rawQuery(sql, null);
+
+        if (cursor.getCount() > 0)
+        {
+            startManagingCursor(cursor);
+            ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(Solditem.this, cursor, 0);
+            listview.setAdapter(itemCursorAdapter);
+        }
+    }
+*/
 
 
 
