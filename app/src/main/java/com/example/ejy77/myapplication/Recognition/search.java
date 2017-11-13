@@ -56,7 +56,7 @@ public class search extends AppCompatActivity implements CameraBridgeViewBase.Cv
 
         setContentView(R.layout.activity_search);
 
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);
+       // mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);
 
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 

@@ -105,7 +105,7 @@ public class jnisearch extends AppCompatActivity implements CameraBridgeViewBase
             }
         }
 
-        mOpenCvCameraView = (CameraBridgeViewBase)findViewById(R.id.tutorial1_activity_java_surface_view);
+       // mOpenCvCameraView = (CameraBridgeViewBase)findViewById(R.id.tutorial1_activity_java_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         mOpenCvCameraView.setCameraIndex(0); // front-camera(1),  back-camera(0)

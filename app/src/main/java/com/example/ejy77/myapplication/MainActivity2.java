@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.ejy77.myapplication.Recognition.Loadimage;
 import com.example.ejy77.myapplication.Recognition.search;
 import com.example.ejy77.myapplication.itemManage.Solditem;
 
@@ -41,7 +42,7 @@ public class MainActivity2 extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),search.class);
+                Intent intent = new Intent(getApplicationContext(),Loadimage.class);
                 startActivity(intent);
             }
         });
