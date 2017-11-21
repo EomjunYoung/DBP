@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity
         btn1 = (Button)findViewById(R.id.btn1);
         et0 = (EditText)findViewById(R.id.et0);
         et1 = (EditText)findViewById(R.id.et1);
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb2.db", null, 1);
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity
                 }
 
 
-                sql = "SELECT * FROM UsersInfor WHERE id="+"'"+id+"'";
+                sql = "SELECT * FROM UsersInfor2 WHERE id="+"'"+id+"'";
                 db = dbHelperUser.getReadableDatabase();
                 cursor = db.rawQuery(sql, null);
                 int count = cursor.getCount();//튜플수
@@ -77,10 +77,8 @@ public class Login extends AppCompatActivity
                 if ( (id.equals(Cid)) && (pwd.equals(Cpwd)))
                 {
 
-                    Intent intent = new Intent(getApplication(), MainActivity2.class);
-                    startActivity(intent);
-                    finish();
-                    Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), MainActivity2.class).putExtra("login", id));
+                    Toast.makeText(getApplicationContext(), "로그인 성공!"+id, Toast.LENGTH_LONG).show();
 
 
                 }

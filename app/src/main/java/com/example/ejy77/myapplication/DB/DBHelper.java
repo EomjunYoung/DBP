@@ -12,6 +12,7 @@ import android.widget.Toast;
 import static android.R.attr.id;
 import static android.R.attr.name;
 import static android.R.attr.track;
+import static com.example.ejy77.myapplication.R.id._id;
 
 /**
  * Created by ejy77 on 2017-10-04.
@@ -90,6 +91,25 @@ import static android.R.attr.track;
                 e.printStackTrace();
             }
 }
+
+
+     public void cashupdate(String cash, String id)
+     {
+         initStringBuilder();
+         try {
+             SQLiteDatabase db = getWritableDatabase();
+             sb.append("UPDATE UsersInfor2 SET money=money+'"+cash+"' where id='"+id+"'");
+             db.execSQL(sb.toString());
+             db.close();
+         }
+
+         catch(Exception e)
+         {
+             e.printStackTrace();
+         }
+     }
+
+
 
 
     public void SKshopInsert(String id, String name, String nation, String price, String number, byte[] image)

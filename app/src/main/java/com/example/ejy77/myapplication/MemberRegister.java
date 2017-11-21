@@ -35,8 +35,8 @@ public class MemberRegister extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memregister);
 
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb.db", null, 1);
-        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb2.db", null, 1);
+        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb2.db", null, 1);
 
         rgbtn1 = (Button)findViewById(R.id.rgbtn1);
         rgbtn2 = (Button)findViewById(R.id.rgbtn2);
@@ -70,7 +70,7 @@ public class MemberRegister extends AppCompatActivity
                 String sex = rb.getText().toString();
 
                 String idcheck = etid.getText().toString();
-                String sql = "SELECT * FROM UsersInfor WHERE id="+"'"+id+"'";
+                String sql = "SELECT * FROM UsersInfor2 WHERE id="+"'"+id+"'";
                 db = dbHelperUser.getReadableDatabase();
                 Cursor cursor = db.rawQuery(sql, null);
                 int count = cursor.getCount();
