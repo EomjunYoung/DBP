@@ -2,13 +2,18 @@ package com.example.ejy77.myapplication.itemManage;
 
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.ejy77.myapplication.DB.DBHelper;
@@ -25,14 +30,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.example.ejy77.myapplication.R;
+import com.example.ejy77.myapplication.Recognition.Loadimage;
 
 public class Solditem extends AppCompatActivity
 {
 
+    Button sellbtn;
     DBHelper dbHelperItem;
     SQLiteDatabase db;
     ListView listview;
     Cursor cursor;
+
 
 
     //final String querySelect = String.format( "SELECT FROM * SKshops");
@@ -51,11 +59,35 @@ public class Solditem extends AppCompatActivity
        dbHelperItem = new DBHelper(this, "itemdb2.db", null, 1);
        db = dbHelperItem.getWritableDatabase();
        Cursor cursor = db.rawQuery(sql, null);
+       sellbtn = (Button)findViewById(R.id.sellbtn);
+
 
 
 
         ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(this, cursor, 0);
         listview.setAdapter(itemCursorAdapter);
+
+
+        sellbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder ad = new AlertDialog.Builder(Solditem.this);
+                ad.setTitle("Title");
+                ad.setMessage("아이템사진을 찍으시겠습니까?");
+                ad.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+
+                        Intent intent = new Intent(getApplicationContext(), Loadimage.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                ad.create();
+                ad.show();
+            }
+        });
+
 
 
         // selectDB();

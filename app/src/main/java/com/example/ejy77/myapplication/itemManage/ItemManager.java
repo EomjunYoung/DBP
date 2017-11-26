@@ -3,14 +3,17 @@ package com.example.ejy77.myapplication.itemManage;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.UserManager;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,6 +24,7 @@ import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +107,17 @@ public class ItemManager extends AppCompatActivity
                 String nation = Itemnation.getText().toString();
                 String price = Itemprice.getText().toString();
                 String number = Itemnumber.getText().toString();
-                byte[] bytes = getByteArrayFromDrawable(getResources().getDrawable(R.drawable.cap1));
+                //bytes = getByteArrayFromDrawable(getResources().getDrawable(R.drawable.cap4));
+                //bytes = getIntent().getByteArrayExtra("image");
+                String imageuri = getIntent().getStringExtra("imageuri");
+                Uri muri = Uri.parse(imageuri);
+                try {
+                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), muri);
+                    //testiv.setImageBitmap(bmp);
+                    bytes = getByteArrayFromDrawable2(bmp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 String _id = Item_id.getText().toString();
 
                // dbHelperItem.SKshopInsert(id, name, nation, price, number, null);
@@ -237,6 +251,15 @@ public class ItemManager extends AppCompatActivity
 
     public byte[] getByteArrayFromDrawable(Drawable d) {
         Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] data = stream.toByteArray();
+
+        return data;
+    }
+
+    public byte[] getByteArrayFromDrawable2(Bitmap b) {
+        Bitmap bitmap = b;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] data = stream.toByteArray();

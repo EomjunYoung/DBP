@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.ejy77.myapplication.Recognition.Loadimage;
 import com.example.ejy77.myapplication.Recognition.search;
+import com.example.ejy77.myapplication.itemManage.ItemCursorAdapter;
 import com.example.ejy77.myapplication.itemManage.ItemManager;
 import com.example.ejy77.myapplication.itemManage.Solditem;
 
@@ -35,17 +36,15 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), Solditem.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), Solditem.class).putExtra("login", id));
 
             }
         });
 
-
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),Loadimage.class);
+                Intent intent = new Intent(getApplicationContext(),ItemManager.class);
                 startActivity(intent);
             }
         });
@@ -62,7 +61,7 @@ public class MainActivity2 extends AppCompatActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ItemManager.class);
+                Intent intent = new Intent(getApplicationContext(), Loadimage.class);
                 startActivity(intent);
             }
         });

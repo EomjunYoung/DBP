@@ -1,6 +1,7 @@
 package com.example.ejy77.myapplication.itemManage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.R;
@@ -27,6 +29,7 @@ public class ItemCursorAdapter extends CursorAdapter
 {
 
     private LayoutInflater cursorInflater;
+    String id;
 
     public ItemCursorAdapter(Context context, Cursor c, int flag) {
 
@@ -42,11 +45,19 @@ public class ItemCursorAdapter extends CursorAdapter
 
         return LayoutInflater.from(context).inflate(R.layout.shopitem, parent, false);
 }
+/*
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+        id = intent.getStringExtra("login");
+        return startId;
+    }*/
 
     @Override
     public void bindView(View view, final Context context, final Cursor cursor)
             // //View의 각 위젯들의 속성을 지정하는것이 bindView
     {
+
 
 
         TextView tvname = (TextView)view.findViewById(R.id.itemname);
@@ -55,6 +66,7 @@ public class ItemCursorAdapter extends CursorAdapter
         TextView tvnumber = (TextView)view.findViewById(R.id.itemnumber);
         Button btnpurchase = (Button)view.findViewById(R.id.itempurchase);
         ImageView ivimage = (ImageView)view.findViewById(R.id.itemimage);
+
 
 
 
@@ -86,23 +98,28 @@ public class ItemCursorAdapter extends CursorAdapter
                 public void onClick(View view) {
 
                     SQLiteDatabase db, db2;
-                    DBHelper dbHelperItem = new DBHelper(context, "itemdb.db", null, 2);
-                    DBHelper dbHelperUser = new DBHelper(context, "logindb.db", null, 2);
 
-                    db = dbHelperItem.getWritableDatabase();
-                    db2 = dbHelperUser.getWritableDatabase();
+                    DBHelper dbHelperItem = new DBHelper(context, "itemdb2.db", null, 1);
+                    DBHelper dbHelperUser = new DBHelper(context, "logindb2.db", null, 1);
 
-                    String sql = "select ItemPrice from SKshops";
-                    String sql2 = "select money from UsersInfor";
+                    db = dbHelperItem.getReadableDatabase();
+                    db2 = dbHelperUser.getReadableDatabase();
 
-                    Cursor cursor1 = db2.rawQuery(sql2, null);
+                    String sql = "select * from SKshops2 where _id='Item_id3'";
+                    String sql2 = "select * from UsersInfor2 where id='test2'";
+
+
                     Cursor cursor2 = db.rawQuery(sql, null);
+                    Cursor cursor1 = db2.rawQuery(sql2, null);
+                    cursor2.moveToFirst();
+                    cursor1.moveToFirst();
 
-                    int UserMoney = Integer.parseInt(cursor1.getString(0));
-                    int ItemPrice = Integer.parseInt(cursor2.getString(0));
+                    int UserMoney = Integer.parseInt(cursor1.getString(5));
+                    int ItemPrice = Integer.parseInt(cursor2.getString(3));
 
                     int total = UserMoney - ItemPrice;
 
+                    Toast.makeText(context, total+"", Toast.LENGTH_SHORT).show();
 
 
                 }

@@ -69,6 +69,7 @@ public class MypageCustomer extends AppCompatActivity
                     }
                 });
 
+
                 ad.show();
             }
 

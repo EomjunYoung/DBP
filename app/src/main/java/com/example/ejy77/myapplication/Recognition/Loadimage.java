@@ -2,6 +2,8 @@ package com.example.ejy77.myapplication.Recognition;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -10,9 +12,12 @@ import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.ejy77.myapplication.R;
+import com.example.ejy77.myapplication.itemManage.ItemManager;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -64,10 +69,13 @@ import java.io.IOException;
 
                try
                {
+                   Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
                    Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mUri);
                    // 혹은 bmp = Images.Media.getBitmap(getContentResolver(), url);
+                   byte[] bytes = getByteArrayFromDrawable(bmp);
+                   Intent intent = new Intent(getApplicationContext(), ItemManager.class).putExtra("imageuri", mUri.toString());
+                   startActivity(intent);
 
-                   iv1.setImageBitmap(bmp);
                }
                catch(FileNotFoundException e)
                {
@@ -86,5 +94,15 @@ import java.io.IOException;
 
 //iv1.setImageURI(data.getData());
 
+
+
+        public byte[] getByteArrayFromDrawable(Bitmap b) {
+            Bitmap bitmap = b;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] data = stream.toByteArray();
+
+            return data;
+        }
 
 }
