@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity
         btn1 = (Button)findViewById(R.id.btn1);
         et0 = (EditText)findViewById(R.id.et0);
         et1 = (EditText)findViewById(R.id.et1);
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb2.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb3.db", null, 1);
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override

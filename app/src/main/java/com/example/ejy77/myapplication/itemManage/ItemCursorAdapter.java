@@ -2,6 +2,7 @@ package com.example.ejy77.myapplication.itemManage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.R;
 
+import static android.R.attr.bitmap;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
@@ -29,6 +31,8 @@ public class ItemCursorAdapter extends CursorAdapter
 {
 
     private LayoutInflater cursorInflater;
+    private final int REQUEST_WIDTH = 512;
+    private final int REQUEST_HEIGHT = 512;
     String id;
 
     public ItemCursorAdapter(Context context, Cursor c, int flag) {
@@ -67,22 +71,21 @@ public class ItemCursorAdapter extends CursorAdapter
         Button btnpurchase = (Button)view.findViewById(R.id.itempurchase);
         ImageView ivimage = (ImageView)view.findViewById(R.id.itemimage);
 
-
-
-
-
         Log.d("eom", "1");
 
-            Log.d("eom", "2");
-
+        Log.d("eom", "2");
 
             String name = cursor.getString(cursor.getColumnIndexOrThrow("ItemName"));
             String nation = cursor.getString(cursor.getColumnIndexOrThrow("ItemNation"));
             String price = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
             String number = cursor.getString(cursor.getColumnIndexOrThrow("ItemNumber"));
             byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
-            Bitmap bitmap = bytetobitmap(bytes);
+           // Bitmap bitmap = bytetobitmap(bytes);
+            //Bitmap bitmap2 = resizeBitmap(bitmap);
 
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 16;
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
 
             Log.d("eom", "3");
 
@@ -99,8 +102,8 @@ public class ItemCursorAdapter extends CursorAdapter
 
                     SQLiteDatabase db, db2;
 
-                    DBHelper dbHelperItem = new DBHelper(context, "itemdb2.db", null, 1);
-                    DBHelper dbHelperUser = new DBHelper(context, "logindb2.db", null, 1);
+                    DBHelper dbHelperItem = new DBHelper(context, "itemdb3.db", null, 1);
+                    DBHelper dbHelperUser = new DBHelper(context, "logindb3.db", null, 1);
 
                     db = dbHelperItem.getReadableDatabase();
                     db2 = dbHelperUser.getReadableDatabase();
@@ -147,4 +150,38 @@ public class ItemCursorAdapter extends CursorAdapter
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap;
     }
+
+    private int setSimpleSize(BitmapFactory.Options options, int requestWidth, int requestHeight){
+        // 이미지 사이즈를 체크할 원본 이미지 가로/세로 사이즈를 임시 변수에 대입.
+        int originalWidth = options.outWidth;
+        int originalHeight = options.outHeight;
+
+        // 원본 이미지 비율인 1로 초기화
+        int size = 1;
+
+        // 해상도가 깨지지 않을만한 요구되는 사이즈까지 2의 배수의 값으로 원본 이미지를 나눈다.
+        while(requestWidth < originalWidth || requestHeight < originalHeight){
+            originalWidth = originalWidth / 2;
+            originalHeight = originalHeight / 2;
+
+            size = size * 2;
+        }
+        return size;
+    }
+
+    static public Bitmap resizeBitmap(Bitmap original) {
+
+        int resizeWidth = 200;
+
+        double aspectRatio = (double) original.getHeight() / (double) original.getWidth();
+        int targetHeight = (int) (resizeWidth * aspectRatio);
+        Bitmap result = Bitmap.createScaledBitmap(original, resizeWidth, targetHeight, false);
+        if (result != original) {
+            original.recycle();
+        }
+        return result;
+    }
+
+
+
 }

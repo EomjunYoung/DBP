@@ -12,6 +12,7 @@ import android.os.UserManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -67,8 +68,8 @@ public class ItemManager extends AppCompatActivity
 
             setContentView(R.layout.activity_manageitem);
 
-        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb2.db", null, 1);
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb2.db", null, 1);
+        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb3.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb3.db", null, 1);
 
 
 
@@ -107,21 +108,48 @@ public class ItemManager extends AppCompatActivity
                 String nation = Itemnation.getText().toString();
                 String price = Itemprice.getText().toString();
                 String number = Itemnumber.getText().toString();
-                //bytes = getByteArrayFromDrawable(getResources().getDrawable(R.drawable.cap4));
-                //bytes = getIntent().getByteArrayExtra("image");
-                String imageuri = getIntent().getStringExtra("imageuri");
-                Uri muri = Uri.parse(imageuri);
-                try {
-                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), muri);
-                    //testiv.setImageBitmap(bmp);
-                    bytes = getByteArrayFromDrawable2(bmp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 String _id = Item_id.getText().toString();
+                Log.d("eom", "id대입완료");
+
+                //bytes = getIntent().getByteArrayExtra("image");
+                //bytes = getByteArrayFromDrawable(getResources().getDrawable(R.drawable.cap4));
+                String imageuri = getIntent().getStringExtra("imageuri");
+
+                if(imageuri != null) {
+                    Uri muri = Uri.parse(imageuri);
+
+                Bitmap bmp = null;
+
+
+                    try {
+                        bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), muri);
+                        bytes = getByteArrayFromDrawable2(bmp);
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 16;
+                        Bitmap bitmap3 = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+                        bytes = getByteArrayFromDrawable2(bitmap3);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    testiv.setImageBitmap(bmp);
+                    Log.d("eom", "사진대입완료1");
+                    //bytes = getByteArrayFromDrawable2(bitmap3);
+                    Log.d("eom", "사진대입완료2");
+                    dbHelperItem.SKshopImageInsert(id, name, nation, price, number, bytes, _id);
+                    Log.d("eom", "insert 완료");
+                }
+                else
+                {
+                    dbHelperItem.SKshopImageInsert(id, name, nation, price, number, null, _id);
+                    Log.d("eom", "insert 완료");
+                }
+
+
+
+
 
                // dbHelperItem.SKshopInsert(id, name, nation, price, number, null);
-               dbHelperItem.SKshopImageInsert(id, name, nation, price, number, bytes, _id);
 
 
             }
@@ -216,12 +244,15 @@ public class ItemManager extends AppCompatActivity
                     String _id = cursor.getString(6);
 
                    str += id + name + nation + price + number +_id;
-                    Bitmap bitmap = bytetobitmap(bytes);
+
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 16;
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
 
                     select.setText(str);
                     testiv.setImageBitmap(bitmap);
 
-                    cursor.moveToNext();
+
 
                 }
 
@@ -266,6 +297,20 @@ public class ItemManager extends AppCompatActivity
 
         return data;
     }
+
+    static public Bitmap resizeBitmap(Bitmap original) {
+
+        int resizeWidth = 200;
+
+        double aspectRatio = (double) original.getHeight() / (double) original.getWidth();
+        int targetHeight = (int) (resizeWidth * aspectRatio);
+        Bitmap result = Bitmap.createScaledBitmap(original, resizeWidth, targetHeight, false);
+        if (result != original) {
+            original.recycle();
+        }
+        return result;
+    }
+
 
 
 

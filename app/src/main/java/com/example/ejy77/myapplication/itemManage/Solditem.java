@@ -56,7 +56,7 @@ public class Solditem extends AppCompatActivity
         String sql = "select * from SKshops2";
 
        listview = (ListView)findViewById(R.id.lv1);
-       dbHelperItem = new DBHelper(this, "itemdb2.db", null, 1);
+       dbHelperItem = new DBHelper(this, "itemdb3.db", null, 1);
        db = dbHelperItem.getWritableDatabase();
        Cursor cursor = db.rawQuery(sql, null);
        sellbtn = (Button)findViewById(R.id.sellbtn);

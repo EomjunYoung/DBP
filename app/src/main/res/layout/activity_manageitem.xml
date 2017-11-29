@@ -14,17 +14,20 @@
 
 
     <Button
+        android:backgroundTint="@color/login_button"
         android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
+        android:backgroundTint="@color/login_button"
         android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 
     <Button
+        android:backgroundTint="@color/login_button"
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -163,22 +166,24 @@
 
     </LinearLayout>
 
-    <TextView
 
+
+    <TextView
         android:id="@+id/select"
         android:text="dd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/testiv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
 
 
-
-
-
-
+    </ScrollView>
 </LinearLayout>

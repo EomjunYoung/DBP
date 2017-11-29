@@ -12,10 +12,15 @@ import com.example.ejy77.myapplication.itemManage.ItemCursorAdapter;
 import com.example.ejy77.myapplication.itemManage.ItemManager;
 import com.example.ejy77.myapplication.itemManage.Solditem;
 
+import static com.example.ejy77.myapplication.R.id.btn1;
+import static com.example.ejy77.myapplication.R.id.btn2;
+import static com.example.ejy77.myapplication.R.id.btn3;
+import static com.example.ejy77.myapplication.R.id.btn4;
+
 public class MainActivity2 extends AppCompatActivity {
 
 
-    Button btn1, btn2, btn3, btn4;
+    Button button, button2, button3, button4;
     String id;
 
 
@@ -25,14 +30,14 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_app);
 
 
-        btn1 = (Button)findViewById(R.id.btn1);
-        btn2 = (Button)findViewById(R.id.btn2);
-        btn3 = (Button)findViewById(R.id.btn3);
-        btn4 = (Button)findViewById(R.id.btn4);
+        button = (Button)findViewById(R.id.button);
+        button2 = (Button)findViewById(R.id.button2);
+        button3 = (Button)findViewById(R.id.button3);
+        button4 = (Button)findViewById(R.id.button4);
         id = getIntent().getStringExtra("login");
 
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -41,7 +46,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),ItemManager.class);
@@ -49,7 +54,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        btn3.setOnClickListener(new View.OnClickListener() {
+        button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -58,7 +63,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        btn4.setOnClickListener(new View.OnClickListener() {
+        button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Loadimage.class);
