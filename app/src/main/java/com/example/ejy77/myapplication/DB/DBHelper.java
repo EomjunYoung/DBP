@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import static com.example.ejy77.myapplication.R.id._id;
 
     private Context context;
     private StringBuilder sb = new StringBuilder();
+
 
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -58,13 +60,13 @@ import static com.example.ejy77.myapplication.R.id._id;
             initStringBuilder();
 
             sb.append("CREATE TABLE IF NOT EXISTS SKshops2(");
-            sb.append("ItemId VARCHAR(20) PRIMARY KEY, ");
             sb.append("ItemName VARCHAR(30), ");
             sb.append("ItemNation VARCHAR(20), ");
             sb.append("ItemPrice VARCHAR(20), ");
             sb.append("ItemNumber VARCHAR(20),");
-            sb.append("ItemPicture BLOB,");
-            sb.append("_id varchar(20))");
+            sb.append("ItemPicture BLOB, ");
+            sb.append("ItemType VARCHAR(20), ");
+            sb.append("_id varchar(20) PRIMARY KEY)");
 
             db.execSQL(sb.toString());
             Log.d("able", "TABLE 생성완료!!");
@@ -157,6 +159,31 @@ import static com.example.ejy77.myapplication.R.id._id;
         }
 
     }
+
+
+        public void SKshopImageInsert2(String id, String name, String nation, String price, String number, String _id)
+        {
+            initStringBuilder();
+            try{
+                SQLiteDatabase db = getWritableDatabase();
+                SQLiteStatement p = db.compileStatement("INSERT INTO SKshops2(ItemId, ItemName, ItemNation, ItemPrice, ItemNumber, _id) Values(?,?,?,?,?,?)");
+                p.bindString(1, id);
+                p.bindString(2, name);
+                p.bindString(3, nation);
+                p.bindString(4, price);
+                p.bindString(5, number);
+                p.bindString(6, _id);
+                p.execute();
+
+
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+
 
     public void shopSelect()
     {

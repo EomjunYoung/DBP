@@ -79,13 +79,13 @@ public class ItemCursorAdapter extends CursorAdapter
             String nation = cursor.getString(cursor.getColumnIndexOrThrow("ItemNation"));
             String price = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
             String number = cursor.getString(cursor.getColumnIndexOrThrow("ItemNumber"));
-            byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
+    //        byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
            // Bitmap bitmap = bytetobitmap(bytes);
             //Bitmap bitmap2 = resizeBitmap(bitmap);
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 16;
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+      //  BitmapFactory.Options options = new BitmapFactory.Options();
+      //  options.inSampleSize = 16;
+       // Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
 
             Log.d("eom", "3");
 
@@ -93,7 +93,7 @@ public class ItemCursorAdapter extends CursorAdapter
             tvnation.setText(nation);
             tvprice.setText(price);
             tvnumber.setText(number);
-            ivimage.setImageBitmap(bitmap);
+       //     ivimage.setImageBitmap(bitmap);
             Log.d("eom", "4");
 
             btnpurchase.setOnClickListener(new View.OnClickListener() {

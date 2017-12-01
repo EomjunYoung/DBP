@@ -1,6 +1,8 @@
 package com.example.ejy77.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +43,29 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), Solditem.class).putExtra("login", id));
+                AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity2.this);
+                ad.setTitle("Title");
+                ad.setMessage("물품을 새로 등록하시겠습니까?");
+
+                ad.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        startActivity(new Intent(getApplicationContext(), Solditem.class).putExtra("login", id));
+                        dialog.dismiss();
+                    }
+                });
+
+                ad.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+
+                ad.create();
+                ad.show();
 
             }
         });

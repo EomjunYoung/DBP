@@ -3,6 +3,8 @@ package com.example.ejy77.myapplication.itemManage;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,12 +27,16 @@ import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.bitmap;
+import static android.R.attr.id;
 import static android.R.attr.name;
 import static android.R.id.list;
+import static com.example.ejy77.myapplication.R.id._id;
 import static com.example.ejy77.myapplication.R.id.itemid;
 import static com.example.ejy77.myapplication.R.id.itemname;
 import static com.example.ejy77.myapplication.R.id.itemnation;
@@ -68,8 +74,8 @@ public class ItemManager extends AppCompatActivity
 
             setContentView(R.layout.activity_manageitem);
 
-        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb3.db", null, 1);
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb3.db", null, 1);
+        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb4.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb4.db", null, 1);
 
 
 
@@ -79,7 +85,7 @@ public class ItemManager extends AppCompatActivity
         Itemnation = (TextView)findViewById(R.id.itemnation);
         Itemprice = (TextView)findViewById(R.id.itemprice);
         Itemnumber = (TextView)findViewById(R.id.itemnumber);
-        Item_id = (EditText)findViewById(R.id._id);
+        Item_id = (EditText)findViewById(_id);
 
         Username = (TextView)findViewById(R.id.username);
         Userid = (TextView)findViewById(R.id.userid);
@@ -114,11 +120,49 @@ public class ItemManager extends AppCompatActivity
                 //bytes = getIntent().getByteArrayExtra("image");
                 //bytes = getByteArrayFromDrawable(getResources().getDrawable(R.drawable.cap4));
                 String imageuri = getIntent().getStringExtra("imageuri");
+                ExifInterface exif = null;
+
 
                 if(imageuri != null) {
-                    Uri muri = Uri.parse(imageuri);
 
-                Bitmap bmp = null;
+                    Uri muri = Uri.parse(imageuri);
+                    String imagePath = getRealPathFromURI(muri);
+
+
+                    try {
+                        exif = new ExifInterface(imagePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                    int exifDegree = exifOrientationToDegrees(exifOrientation);
+                    Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                    testiv.setImageBitmap(rotate(bitmap, exifDegree));
+                    dbHelperItem.SKshopImageInsert(id, name, nation, price, number, null, _id);
+                    Log.d("eom", "데이터 삽입완료");
+                }
+
+                else
+                {
+                    dbHelperItem.SKshopImageInsert2(id, name, nation, price, number, _id);
+                    Log.d("eom", "이미지없음완료");
+                }
+
+
+               /* if(imageuri != null) {
+                    Uri muri = Uri.parse(imageuri);
+                    String imagePath = getRealPathFromURI(muri);
+                    try {
+                        exif = new ExifInterface(imagePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                    int exifDegree = exifOrientationToDegrees(exifOrientation);
+
+                    Bitmap bmp = null;
 
 
                     try {
@@ -143,7 +187,7 @@ public class ItemManager extends AppCompatActivity
                 {
                     dbHelperItem.SKshopImageInsert(id, name, nation, price, number, null, _id);
                     Log.d("eom", "insert 완료");
-                }
+                }*/
 
 
 
@@ -223,44 +267,61 @@ public class ItemManager extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
+                /*File imgFile = new File("/storage/emulated/0/DCIM/Camera/20171130_092817.jpg");
+                Log.d("eom", "접속");
 
+                if (imgFile.exists()) {
+
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+                    testiv.setImageBitmap(myBitmap);
+                    Log.d("eom", "불러오기"); // 이 코드는 지정된 주소의 내용을 갤러리에서 비트맵으로 보여주는 것.
+
+                }*/
 
                 SQLiteDatabase db = dbHelperItem.getReadableDatabase();
                 String sql = "select * from SKshops2";
-                String str = "";
+                String str2 = "";
                 Cursor cursor = db.rawQuery(sql, null);
-                cursor.moveToFirst();
+                Log.d("eom", "커서완료");
+                //cursor.moveToFirst();
+                Log.d("eom", "커서 처음으로옴");
 
                 while(cursor.moveToNext())
                 {
-
-
-                    String id = cursor.getString(0);
+                   /* String id = cursor.getString(1);
                     String name = cursor.getString(1);
                     String nation = cursor.getString(2);
                     String price = cursor.getString(3);
                     String number = cursor.getString(4);
-                    byte[] bytes = cursor.getBlob(5);
-                    String _id = cursor.getString(6);
+                    //byte[] bytes = cursor.getBlob(5);
+                    String _id = cursor.getString(6);*/
 
-                   str += id + name + nation + price + number +_id;
+                    String id = cursor.getString(cursor.getColumnIndexOrThrow("ItemId"));
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow("ItemName"));
+                    String nation = cursor.getString(cursor.getColumnIndexOrThrow("ItemNation"));
+                    String price = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
+                    String number = cursor.getString(cursor.getColumnIndexOrThrow("ItemNumber"));
+                    String _id = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
 
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = 16;
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+                    Log.d("eom", "탐색완료");
 
-                    select.setText(str);
-                    testiv.setImageBitmap(bitmap);
+                    str2 += id + name + nation + price + number +_id;
 
+                    //BitmapFactory.Options options = new BitmapFactory.Options();
+                    //options.inSampleSize = 16;
+                   // Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
 
-
+                    select.setText(str2);
+                    Log.d("eom", "셋완료");
+                   // testiv.setImageBitmap(bitmap);
                 }
 
-
+                Log.d("eom", "종료");
                 db.close();
 
-
             }
+
         });
 
     }
@@ -298,6 +359,8 @@ public class ItemManager extends AppCompatActivity
         return data;
     }
 
+
+
     static public Bitmap resizeBitmap(Bitmap original) {
 
         int resizeWidth = 200;
@@ -311,12 +374,46 @@ public class ItemManager extends AppCompatActivity
         return result;
     }
 
-
-
-
     public Bitmap bytetobitmap(byte[] bytes)
     {
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap;
     }
+
+
+    public String getRealPathFromURI(Uri contentUri) {
+        int column_index=0;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if(cursor.moveToFirst()){
+            column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        }
+
+        return cursor.getString(column_index);
+    }
+
+    public int exifOrientationToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
+    }
+
+
+    public Bitmap rotate(Bitmap src, float degree) {
+
+        // Matrix 객체 생성
+        Matrix matrix = new Matrix();
+        // 회전 각도 셋팅
+        matrix.postRotate(degree);
+        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
+        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
+                src.getHeight(), matrix, true);
+    }
+
+
 }
