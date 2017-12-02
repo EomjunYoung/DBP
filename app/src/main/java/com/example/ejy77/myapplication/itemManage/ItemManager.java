@@ -74,8 +74,8 @@ public class ItemManager extends AppCompatActivity
 
             setContentView(R.layout.activity_manageitem);
 
-        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb4.db", null, 1);
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb4.db", null, 1);
+        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb5.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb5.db", null, 1);
 
 
 
@@ -139,7 +139,7 @@ public class ItemManager extends AppCompatActivity
                     int exifDegree = exifOrientationToDegrees(exifOrientation);
                     Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                     testiv.setImageBitmap(rotate(bitmap, exifDegree));
-                    dbHelperItem.SKshopImageInsert(id, name, nation, price, number, null, _id);
+                    //dbHelperItem.SKshopImageInsert(id, name, nation, price, number, null, _id);
                     Log.d("eom", "데이터 삽입완료");
                 }
 
@@ -280,11 +280,11 @@ public class ItemManager extends AppCompatActivity
                 }*/
 
                 SQLiteDatabase db = dbHelperItem.getReadableDatabase();
-                String sql = "select * from SKshops2";
+                String sql = "select * from Eoms";
                 String str2 = "";
                 Cursor cursor = db.rawQuery(sql, null);
                 Log.d("eom", "커서완료");
-                //cursor.moveToFirst();
+                cursor.moveToFirst();
                 Log.d("eom", "커서 처음으로옴");
 
                 while(cursor.moveToNext())
@@ -297,16 +297,18 @@ public class ItemManager extends AppCompatActivity
                     //byte[] bytes = cursor.getBlob(5);
                     String _id = cursor.getString(6);*/
 
-                    String id = cursor.getString(cursor.getColumnIndexOrThrow("ItemId"));
+
                     String name = cursor.getString(cursor.getColumnIndexOrThrow("ItemName"));
                     String nation = cursor.getString(cursor.getColumnIndexOrThrow("ItemNation"));
                     String price = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
                     String number = cursor.getString(cursor.getColumnIndexOrThrow("ItemNumber"));
+                    byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow("ItemPicture"));
+                    String type = cursor.getString(cursor.getColumnIndexOrThrow("ItemType"));
                     String _id = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
 
                     Log.d("eom", "탐색완료");
 
-                    str2 += id + name + nation + price + number +_id;
+                    str2 += name + nation + price + number + type + _id;
 
                     //BitmapFactory.Options options = new BitmapFactory.Options();
                     //options.inSampleSize = 16;
@@ -314,7 +316,8 @@ public class ItemManager extends AppCompatActivity
 
                     select.setText(str2);
                     Log.d("eom", "셋완료");
-                   // testiv.setImageBitmap(bitmap);
+                    Bitmap bitmap2 = bytetobitmap(bytes);
+                   testiv.setImageBitmap(bitmap2);
                 }
 
                 Log.d("eom", "종료");

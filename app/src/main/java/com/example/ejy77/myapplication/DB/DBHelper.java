@@ -42,7 +42,6 @@ import static com.example.ejy77.myapplication.R.id._id;
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-
         initStringBuilder();
 
         try {
@@ -59,14 +58,14 @@ import static com.example.ejy77.myapplication.R.id._id;
 
             initStringBuilder();
 
-            sb.append("CREATE TABLE IF NOT EXISTS SKshops2(");
+            sb.append("CREATE TABLE IF NOT EXISTS Eoms( ");
             sb.append("ItemName VARCHAR(30), ");
             sb.append("ItemNation VARCHAR(20), ");
             sb.append("ItemPrice VARCHAR(20), ");
             sb.append("ItemNumber VARCHAR(20),");
             sb.append("ItemPicture BLOB, ");
             sb.append("ItemType VARCHAR(20), ");
-            sb.append("_id varchar(20) PRIMARY KEY)");
+            sb.append("_id VARCHAR(20) PRIMARY KEY)");
 
             db.execSQL(sb.toString());
             Log.d("able", "TABLE 생성완료!!");
@@ -136,21 +135,22 @@ import static com.example.ejy77.myapplication.R.id._id;
 
 
     // 이미지를 byte형식으로 저장할땐 compileStatement를 통해 해야 byte가 정상적으로 잘 저장됨.
-    public void SKshopImageInsert(String id, String name, String nation, String price, String number, byte[] image, String _id)
+    public void SKshopImageInsert(String name, String nation, String price, String number, byte[] image, String type, String _id)
     {
         initStringBuilder();
         try{
             SQLiteDatabase db = getWritableDatabase();
-            SQLiteStatement p = db.compileStatement("INSERT INTO SKshops2(ItemId, ItemName, ItemNation, ItemPrice, ItemNumber,ItemPicture, _id) Values(?,?,?,?,?,?,?)");
-            p.bindString(1, id);
-            p.bindString(2, name);
-            p.bindString(3, nation);
-            p.bindString(4, price);
-            p.bindString(5, number);
-            p.bindBlob(6, image);
+            SQLiteStatement p = db.compileStatement("INSERT INTO Eoms(ItemName, ItemNation, ItemPrice, ItemNumber, ItemPicture, ItemType, _id) Values(?,?,?,?,?,?,?)");
+            p.bindString(1, name);
+            p.bindString(2, nation);
+            p.bindString(3, price);
+            p.bindString(4, number);
+            p.bindBlob(5, image);
+            p.bindString(6, type);
             p.bindString(7, _id);
             p.execute();
 
+            db.close();
 
         }
         catch (Exception e)

@@ -35,8 +35,8 @@ public class MemberRegister extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memregister);
 
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb4.db", null, 1);
-        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb4.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb5.db", null, 1);
+        dbHelperItem = new DBHelper(getApplicationContext(), "itemdb5.db", null, 1);
 
         rgbtn1 = (Button)findViewById(R.id.rgbtn1);
         rgbtn2 = (Button)findViewById(R.id.rgbtn2);

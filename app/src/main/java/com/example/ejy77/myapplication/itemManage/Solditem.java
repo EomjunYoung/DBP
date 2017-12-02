@@ -53,10 +53,10 @@ public class Solditem extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itembar);
 
-        String sql = "select * from SKshops2";
+        String sql = "select * from Eoms";
 
        listview = (ListView)findViewById(R.id.lv1);
-       dbHelperItem = new DBHelper(this, "itemdb4.db", null, 1);
+       dbHelperItem = new DBHelper(this, "itemdb5.db", null, 1);
        db = dbHelperItem.getWritableDatabase();
        Cursor cursor = db.rawQuery(sql, null);
        sellbtn = (Button)findViewById(R.id.sellbtn);
@@ -72,7 +72,7 @@ public class Solditem extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder ad = new AlertDialog.Builder(Solditem.this);
-                ad.setTitle("물품에 등록될 사진이 있는지를 묻는 알림창");
+                ad.setTitle("물d");
                 ad.setMessage("등록할 사진이 없으면 YES를 없으시면 NO를");
                 ad.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override

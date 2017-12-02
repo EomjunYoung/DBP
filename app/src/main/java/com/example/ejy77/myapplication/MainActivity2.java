@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.ejy77.myapplication.Recognition.Loadimage;
 import com.example.ejy77.myapplication.Recognition.search;
 import com.example.ejy77.myapplication.itemManage.ItemCursorAdapter;
 import com.example.ejy77.myapplication.itemManage.ItemManager;
+import com.example.ejy77.myapplication.itemManage.ItemSell;
 import com.example.ejy77.myapplication.itemManage.Solditem;
 
 import static com.example.ejy77.myapplication.R.id.btn1;
@@ -44,29 +47,41 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View view) {
 
                 AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity2.this);
-                ad.setTitle("Title");
-                ad.setMessage("물품을 새로 등록하시겠습니까?");
+                LayoutInflater inflater = getLayoutInflater();
+                View view2 = inflater.inflate(R.layout.activity_dialog, null);
+                ad.setView(view2);
+                final Button buttonSell = (Button) view2.findViewById(R.id.buttonSell);
+                final Button buttonPurchase = (Button) view2.findViewById(R.id.buttonPurchase);
+                final Button buttonCancel = (Button) view2.findViewById(R.id.buttonCancel);
+                final AlertDialog dialog = ad.create();
 
-                ad.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                buttonSell.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        startActivity(new Intent(getApplicationContext(), Solditem.class).putExtra("login", id));
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity2.this, ItemSell.class);
+                        startActivity(intent);
                         dialog.dismiss();
                     }
                 });
 
-                ad.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                buttonPurchase.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int i) {
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity2.this, Solditem.class);
+                        startActivity(intent);
+                        dialog.dismiss();
 
+                    }
+                });
+
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         dialog.dismiss();
                     }
                 });
 
-
-                ad.create();
-                ad.show();
-
+                dialog.show();
             }
         });
 
@@ -82,7 +97,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(), MypageChanger.class).putExtra("login", id));
+                startActivity(new Intent(getApplicationContext(), ItemSell.class).putExtra("login", id));
 
             }
         });

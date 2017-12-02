@@ -1,66 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/login_bg"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    tools:context="com.example.ejy77.myapplication.MemberRegister">
 
 
+    <TextView
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="판매물품 등록"
+        android:layout_marginBottom="50dp"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textSize="20pt" />
 
 
     <EditText
-        android:text="Insert ItemName"
-        android:id="@+id/ItemName"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+    android:textColorHint="#FFFFFF"
+    android:textColor="#FFFFFF"
+    android:id="@+id/ItemName"
+    android:layout_width="match_parent"
+    android:hint="품목의 이름을 적어주세요."
+    android:layout_height="wrap_content"
+    android:inputType="textEmailAddress"
+    android:textSize="@dimen/text_medium" />
+
 
     <EditText
-        android:text="Insert ItemNation"
+        android:textColorHint="#FFFFFF"
+        android:layout_marginTop="20dp"
         android:id="@+id/ItemNation"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:hint="품목의 원산지를 적어주세요."
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/text_medium" />
+
+
 
     <EditText
-        android:text="Insert ItemPrice"
+        android:textColorHint="#FFFFFF"
+        android:layout_marginTop="20dp"
         android:id="@+id/ItemPrice"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+        android:hint="품목의 가격을 적어주세요."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textSize="@dimen/text_medium" />
+
 
     <EditText
-        android:text="Insert ItemNumber"
+        android:textColorHint="#FFFFFF"
+        android:layout_marginTop="20dp"
         android:id="@+id/ItemNumber"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:text="Insert ItemType"
-        android:id="@+id/ItemType"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:text="Insert ItemId"
-        android:id="@+id/ItemId"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
-
+        android:hint="품목의 수량을 적어주세요."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textSize="@dimen/text_medium" />
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+
+        <TextView
+            android:textColor="#FFFFFF"
+            android:text="파실물품의 Type을 선택하세요."
+            android:textSize="9pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+        <Spinner
+            android:id="@+id/ItemType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_marginTop="15dp"
+            android:id="@+id/ItemPicture"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
         <Button
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/btngallery"
+            android:layout_gravity="center"
+            android:text="Image ADD"
+            android:backgroundTint="@color/login_button"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+
     </LinearLayout>
 
-    <ImageView
-
-        android:id="@+id/ItemImage"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BACK"
+            android:textColor="@android:color/white"
+            android:background="@drawable/my_button"
+            />
+        <Button
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/btnCheck"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:background="@drawable/my_button"
+            />
+        
+
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

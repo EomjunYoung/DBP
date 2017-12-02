@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradation"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="물품 구매여부 알림창"
+        android:textColor="@color/white"
+        android:background="@drawable/gradation_blue"/>
+    <TextView
+        android:id="@+id/editScore"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:digits="0123456789"
+        android:inputType="number"
+        android:text="물품구매는 구매, 물품판매는 판매입니다."/>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/buttonPurchase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/login_button"
+            android:text="구매" />
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/buttonSell"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/login_button"
+            android:text="판매"/>
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/login_button"
+            android:text="취소"/>
+    </LinearLayout>
+
+</LinearLayout>

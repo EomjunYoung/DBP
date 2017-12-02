@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradation"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="사진/갤러리 선택 알림창"
+        android:textColor="@color/white"
+        android:background="@drawable/gradation_blue"/>
+    <TextView
+        android:id="@+id/editScore"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:digits="0123456789"
+        android:inputType="number"
+        android:text="판매할 이미지가 있으면 갤러리, 없으면 카메라입니다."/>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/buttonGallery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/login_button"
+            android:text="Album" />
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/buttonCamera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/login_button"
+            android:text="Camera"/>
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/login_button"
+            android:text="취소"/>
+    </LinearLayout>
+
+</LinearLayout>
