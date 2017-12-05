@@ -51,6 +51,9 @@
         <activity android:name=".itemManage.ItemManager"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".itemManage.ManageItem"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".MypageChanger"
             android:screenOrientation="portrait"/>
 

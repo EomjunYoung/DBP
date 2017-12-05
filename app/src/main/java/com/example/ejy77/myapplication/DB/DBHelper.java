@@ -101,7 +101,6 @@ import static com.example.ejy77.myapplication.R.id._id;
              SQLiteDatabase db = getWritableDatabase();
              sb.append("UPDATE UsersInfor2 SET money=money+'"+cash+"' where id='"+id+"'");
              db.execSQL(sb.toString());
-             db.close();
          }
 
          catch(Exception e)
@@ -110,10 +109,56 @@ import static com.example.ejy77.myapplication.R.id._id;
          }
      }
 
+        public void itemupdate(String number, String id)
+        {
+            initStringBuilder();
+            try {
+                SQLiteDatabase db = getWritableDatabase();
+                sb.append("UPDATE Eoms SET ItemNumber=ItemNumber-'"+number+"' where _id='"+id+"'");
+                db.execSQL(sb.toString());
+            }
+
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        public void itemdelete(String id)
+        {
+            initStringBuilder();
+            try {
+                SQLiteDatabase db = getWritableDatabase();
+                sb.append("Delete From Eoms where _id='"+id+"'");
+                db.execSQL(sb.toString());
+            }
+
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        public void testdelete(String id)
+        {
+            initStringBuilder();
+            try {
+                SQLiteDatabase db = getWritableDatabase();
+                sb.append("Delete From Eoms where ItemType='"+id+"'");
+                db.execSQL(sb.toString());
+            }
+
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
 
 
 
-    public void SKshopInsert(String id, String name, String nation, String price, String number, byte[] image)
+
+
+        public void SKshopInsert(String id, String name, String nation, String price, String number, byte[] image)
     {
         initStringBuilder();
         try {

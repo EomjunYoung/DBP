@@ -38,7 +38,12 @@ import android.widget.Toast;
 import com.example.ejy77.myapplication.R;
 import com.example.ejy77.myapplication.Recognition.Loadimage;
 
-public class Solditem extends AppCompatActivity
+import static com.example.ejy77.myapplication.R.id.buttonCancel;
+import static com.example.ejy77.myapplication.R.id.buttonOK;
+import static com.example.ejy77.myapplication.R.id.editnumber;
+import static com.example.ejy77.myapplication.R.id.editnumber2;
+
+public class ManageItem extends AppCompatActivity
 {
 
     Button sellbtn, deleteItem;
@@ -58,46 +63,44 @@ public class Solditem extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itembar);
+        setContentView(R.layout.activity_itembar2);
 
 
         id = getIntent().getStringExtra("login");
 
-       listview = (ListView)findViewById(R.id.lv1);
-       dbHelperItem = new DBHelper(this, "itemdb5.db", null, 1);
-       dbHelperLogin = new DBHelper(this, "logindb5.db", null, 1);
-       dbItem = dbHelperItem.getWritableDatabase();
-       dbLogin = dbHelperLogin.getWritableDatabase();
-       sellbtn = (Button)findViewById(R.id.sellbtn);
-       deleteItem = (Button)findViewById(R.id.deleteItem);
-       String sql0 = "Select * from Eoms";
-       cursor0 = dbItem.rawQuery(sql0, null);
+        listview = (ListView)findViewById(R.id.lv1);
+        dbHelperItem = new DBHelper(this, "itemdb5.db", null, 1);
+        dbHelperLogin = new DBHelper(this, "logindb5.db", null, 1);
+        dbItem = dbHelperItem.getWritableDatabase();
+        dbLogin = dbHelperLogin.getWritableDatabase();
+        sellbtn = (Button)findViewById(R.id.sellbtn);
+        deleteItem = (Button)findViewById(R.id.deleteItem);
+        String sql0 = "Select * from Eoms";
+        cursor0 = dbItem.rawQuery(sql0, null);
 
 
 
-        ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(this, cursor0, 0);
-        listview.setAdapter(itemCursorAdapter);
+        ManageCursorAdapter manageCursorAdapter = new ManageCursorAdapter(this, cursor0, 0);
+        listview.setAdapter(manageCursorAdapter);
 
 
         sellbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    AlertDialog.Builder ad = new AlertDialog.Builder(Solditem.this);
-                    LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View view2 = (LinearLayout) inflater.inflate(R.layout.dialog_purchase, null);
-                    ad.setView(view2);
-                    final Button buttonCancel = (Button)view2.findViewById(R.id.buttonCancel);
-                    final Button buttonOK = (Button)view2.findViewById(R.id.buttonOK);
-                    final EditText editnumber = (EditText) view2.findViewById(R.id.editnumber);
-                    final EditText editnumber2 = (EditText) view2.findViewById(R.id.editnumber2);
-                    final AlertDialog dialog = ad.create();
+                AlertDialog.Builder ad = new AlertDialog.Builder(ManageItem.this);
+                LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view2 = (LinearLayout) inflater.inflate(R.layout.dialog_delete, null);
+                ad.setView(view2);
+                final Button btnCancel = (Button)view2.findViewById(R.id.btnCancel);
+                final Button btnOK = (Button)view2.findViewById(R.id.btnOK);
+                final EditText editselect = (EditText) view2.findViewById(R.id.editselect);
+                final AlertDialog dialog = ad.create();
 
-                buttonOK.setOnClickListener(new View.OnClickListener() {
+                btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String Itemid = editnumber.getText().toString();
-                        String Itemnumber = editnumber2.getText().toString();
-                        String sql = "select * from Eoms where _id='"+Itemid+"'";
+                        String Itemid = editselect.getText().toString();
+                        /*String sql = "select * from Eoms where _id='"+Itemid+"'";
                         Log.d("eom", sql);
                         String sql2 = "select * from UsersInfor2 where id='"+id+"'";
                         Log.d("eom", sql2);
@@ -106,11 +109,11 @@ public class Solditem extends AppCompatActivity
                         Cursor cursor2 = dbLogin.rawQuery(sql2, null);
                         cursor2.moveToFirst();
                         String selectedItemId = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
-                        String selectedId = cursor2.getString(5);
+                        String selectedId = cursor2.getString(5);*/
 
 
-                        dbHelperItem.itemupdate(Itemnumber, Itemid);
-                        Log.d("eom", Itemnumber+"수량");
+                        dbHelperItem.itemdelete(Itemid);
+                        Log.d("eom", "삭제된 id"+Itemid);
                         String sqll = "select * from Eoms";
                         Cursor cursor00 = dbItem.rawQuery(sqll, null);
                         cursor00.moveToFirst();
@@ -124,7 +127,7 @@ public class Solditem extends AppCompatActivity
                     }
                 });
 
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
@@ -142,8 +145,8 @@ public class Solditem extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-            onBackPressed();
-                
+                onBackPressed();
+
             }
         });
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class MypageCustomer extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
 
-        dbHelperUser = new DBHelper(getApplicationContext(), "logindb2.db", null, 1);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb5.db", null, 1);
         btncash = (Button)findViewById(R.id.btncash);
         id = getIntent().getStringExtra("login");
         btncash.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +52,7 @@ public class MypageCustomer extends AppCompatActivity
 
                         String value = et.getText().toString();
                         dbHelperUser.cashupdate(value, id);
-
-
-
+                        Log.d("eom", value);
 
 
 

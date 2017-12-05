@@ -1,15 +1,31 @@
 package com.example.ejy77.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.ejy77.myapplication.DB.DBHelper;
+import com.example.ejy77.myapplication.itemManage.ManageItem;
+import com.example.ejy77.myapplication.itemManage.Solditem;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by ejy77 on 2017-11-21.
@@ -19,8 +35,10 @@ public class MypageChanger extends AppCompatActivity
 
 {
 
+
+    DBHelper dbHelperUser;
     ImageView ivtest;
-    Button btncustomer, btnmanager;
+    Button manageInfor, manageItem, btnCheck, btnCancel;
     private final int REQUEST_WIDTH = 512;
     private final int REQUEST_HEIGHT = 512;
     String id;
@@ -29,77 +47,100 @@ public class MypageChanger extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
-
-
-        btncustomer = (Button)findViewById(R.id.btncustomer);
-        btnmanager = (Button)findViewById(R.id.btnmanager);
+        manageInfor = (Button)findViewById(R.id.manageInfor);
+        manageItem = (Button)findViewById(R.id.manageItem);
         id = getIntent().getStringExtra("login");
-        ivtest = (ImageView)findViewById(R.id.ivtest);
+        dbHelperUser = new DBHelper(getApplicationContext(), "logindb5.db", null, 1);
+        btnCancel = (Button)findViewById(R.id.btnCancel);
+        btnCheck = (Button)findViewById(R.id.btnCheck);
 
-        btncustomer.setOnClickListener(new View.OnClickListener() {
+
+
+        manageInfor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //startActivity(new Intent(getApplicationContext(), MypageCustomer.class).putExtra("login", id));
+                SQLiteDatabase db = dbHelperUser.getReadableDatabase();
+                String sql = "Select * from UsersInfor2 where id='"+id+"'";
+                final Cursor cursor = db.rawQuery(sql, null);
+                cursor.moveToFirst();
+                final String money1 = cursor.getString(cursor.getColumnIndexOrThrow("money"));
 
 
-             /*   BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.eom);
-                Bitmap bitmap = drawable.getBitmap();
-                Bitmap bitmap2 = resizeBitmap(bitmap, REQUEST_WIDTH, REQUEST_HEIGHT);
-                ivtest.setImageBitmap(bitmap2);*/
+                AlertDialog.Builder ad = new AlertDialog.Builder(MypageChanger.this);
+                LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view2 = (LinearLayout) inflater.inflate(R.layout.dialog_cash, null);
+                ad.setView(view2);
+                final Button btnCancel = (Button)view2.findViewById(R.id.btnCancel);
+                final Button btnOK = (Button)view2.findViewById(R.id.btnOK);
+                final TextView nowcash = (TextView)view2.findViewById(R.id.nowcash);
+                final EditText editCash = (EditText) view2.findViewById(R.id.editCash);
+                final AlertDialog dialog = ad.create();
+                nowcash.setText("현재 회원님이 보유하신 금액 : " + money1);
+                Log.d("eom", "현재 보유한 돈 :" + money1);
 
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                // inJustDecodeBounds = true일때 BitmapFactory.decodeResource는 리턴하지 않는다.
-                // 즉 bitmap은 반환하지않고, options 변수에만 값이 대입된다.
-                //options.inJustDecodeBounds = true;
-               // BitmapFactory.decodeResource(getResources(), R.drawable.eom, options);
-
-                // 이미지 사이즈를 필요한 사이즈로 적당히 줄이기위해 계산한 값을
-                // options.inSampleSize 에 2의 배수의 값으로 넣어준다.
-                options.inSampleSize = 8;
-
-                // options.inJustDecodeBounds 에 false 로 다시 설정해서 BitmapFactory.decodeResource의 Bitmap을 리턴받을 수 있게한다.
-               // options.inJustDecodeBounds = false;
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.eom, options);
-
-                // 이미지 size가 재설정된 이미지를 출력한다.
-                ivtest.setImageBitmap(bitmap);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
 
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+
+
+
+                        String cash = editCash.getText().toString();
+                        dbHelperUser.cashupdate(cash, id);
+                       // SQLiteDatabase db = dbHelperUser.getReadableDatabase();
+                        //String sql = "Select * from UsersInfor2 where id='"+id+"'";
+                        //Cursor cursor1 = db.rawQuery(sql, null);
+                       // String money2 = cursor1.getString(cursor.getColumnIndexOrThrow("money"));
+                        Toast.makeText(getApplicationContext(), cash+"원이 충전되었습니다.",Toast.LENGTH_SHORT).show();
+
+
+
+                        dialog.dismiss();
+
+
+                    }
+                });
+
+               dialog.show();
 
 
             }
         });
 
-        btnmanager.setOnClickListener(new View.OnClickListener() {
+        manageItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MypageManager.class);
+                Intent intent = new Intent(getApplicationContext(), ManageItem.class);
                 startActivity(intent);
             }
         });
 
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+
     }
 
-
-    private int setSimpleSize(BitmapFactory.Options options, int requestWidth, int requestHeight){
-        // 이미지 사이즈를 체크할 원본 이미지 가로/세로 사이즈를 임시 변수에 대입.
-        int originalWidth = options.outWidth;
-        int originalHeight = options.outHeight;
-
-        // 원본 이미지 비율인 1로 초기화
-        int size = 1;
-
-        // 해상도가 깨지지 않을만한 요구되는 사이즈까지 2의 배수의 값으로 원본 이미지를 나눈다.
-        while(requestWidth < originalWidth || requestHeight < originalHeight){
-            originalWidth = originalWidth / 2;
-            originalHeight = originalHeight / 2;
-
-            size = size * 2;
-        }
-        return size;
-    }
 
 }

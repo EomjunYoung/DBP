@@ -1,6 +1,7 @@
 package com.example.ejy77.myapplication.itemManage;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,10 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.MainActivity2;
@@ -26,8 +30,12 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import static android.R.attr.bitmap;
+import static android.R.attr.start;
+import static android.R.attr.x;
+import static com.example.ejy77.myapplication.R.id.ItemType;
 import static com.example.ejy77.myapplication.R.id.buttonPurchase;
 import static com.example.ejy77.myapplication.R.id.buttonSell;
 
@@ -42,13 +50,15 @@ public class ItemSell extends AppCompatActivity {
     private static final int CROP_FROM_IMAGE = 2;//이미지를 크롭함
     private EditText ItemName, ItemNation, ItemPrice, ItemNumber;
     private ImageView ItemPicture;
+    private String name, nation, price, number, type;
     private Spinner ItemType;
+
 
     private String absoultePath;
     private Uri mImageCaptureUri;
     DBHelper dbHelperItem;
     SQLiteDatabase db;
-    Button btngallery;
+    Button btngallery, btnCheck, btnCancel;
 
 
     @Override
@@ -65,6 +75,30 @@ public class ItemSell extends AppCompatActivity {
         ItemPicture = (ImageView)findViewById(R.id.ItemPicture);
         ItemType = (Spinner)findViewById(R.id.ItemType);
         btngallery = (Button)findViewById(R.id.btngallery);
+        btnCheck = (Button)findViewById(R.id.btnCheck);
+        btnCancel = (Button)findViewById(R.id.btnCancel);
+
+        name = ItemName.getText().toString();
+
+        /*final ArrayList<String> list = new ArrayList<>();
+        list.add("스포츠/레저");
+        list.add("화장품/미용");
+        list.add("패션의류");
+        list.add("가구/인테리어");
+        list.add("여행/문화");
+        list.add("도서/음반/DVD");*/
+
+        String[] list = new String[6];
+        list[0] = "스포츠/레저";
+        list[1] = "화장품/미용";
+        list[2] = "패션의류";
+        list[3] = "가구/인테리어";
+        list[4] = "여행/문화";
+        list[5] = "도서/음반/DVD";
+
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list);
+        ItemType.setAdapter(arrayAdapter);
 
 
         btngallery.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +142,29 @@ public class ItemSell extends AppCompatActivity {
 
                 //doTakeAlbumAction();
                // doTakePhotoAction();
+            }
+        });
+
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*String sql = "select _id from Eoms";
+                Cursor cursor = dbHelperItem.getReadableDatabase().rawQuery(sql, null);
+                int count = cursor.getCount();*/
+
+                Intent intent = new Intent(ItemSell.this, Solditem.class);
+                startActivity(intent);
+
+                //String type = (String)ItemType.getItemAtPosition(i);
+                //Toast.makeText(getApplicationContext(), count+"", Toast.LENGTH_SHORT).show();
+                //dbHelperItem.SKshopImageInsert(name, nation, price, number, bytes, type, (count+1)+"");
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -212,11 +269,42 @@ public class ItemSell extends AppCompatActivity {
                 if (extras != null)
 
                 {
+
+                    String sql = "select _id from Eoms";
+                    Cursor cursor = dbHelperItem.getReadableDatabase().rawQuery(sql, null);
+                    int count = cursor.getCount();
+
                     Bitmap photo = (Bitmap)extras.get("data"); // CROP된 BITMAP
                     ItemPicture.setImageBitmap(photo); // 레이아웃의 이미지칸에 CROP된 BITMAP을 보여줌
                     storeCropImage(photo, filePath); // CROP된 이미지를 외부저장소, 앨범에 저장한다.
-                    byte[] bytes = getByteArrayFromDrawable2(photo);
-                    dbHelperItem.SKshopImageInsert("테스트", "테스트","테스트", "테스트", bytes, "테스트", "테스트3");
+                    final byte[] bytes = getByteArrayFromDrawable2(photo);
+
+                    name = ItemName.getText().toString();
+                    nation = ItemName.getText().toString();
+                    price = ItemPrice.getText().toString();
+                    number = ItemNumber.getText().toString();
+                    type = ItemType.getSelectedItem().toString();
+
+                    Log.d("eom", name);
+                    Log.d("eom", count+"");
+
+                    dbHelperItem.SKshopImageInsert(name, nation, price, number, bytes, type, (count+1)+"");
+                    Log.d("eom", "db등록완료");
+
+
+                    ItemType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
                     Log.d("eom", "디비삽입완료");
                     absoultePath = filePath;
                     break;

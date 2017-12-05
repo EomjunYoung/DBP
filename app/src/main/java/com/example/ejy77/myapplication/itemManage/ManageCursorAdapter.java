@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,7 +35,7 @@ import static com.example.ejy77.myapplication.R.id._id;
  * Created by ejy77 on 2017-11-06.
  */
 
-public class ItemCursorAdapter extends CursorAdapter
+public class ManageCursorAdapter extends CursorAdapter
 {
 
     private LayoutInflater cursorInflater;
@@ -43,7 +44,7 @@ public class ItemCursorAdapter extends CursorAdapter
 
 
 
-    public ItemCursorAdapter(Context context, Cursor c, int flag) {
+    public ManageCursorAdapter(Context context, Cursor c, int flag) {
         super(context, c, flag);
 
     }
@@ -51,13 +52,13 @@ public class ItemCursorAdapter extends CursorAdapter
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent)
-            // ListView에 표시될 View를 리턴
+    // ListView에 표시될 View를 리턴
     {
 
 
-        return LayoutInflater.from(context).inflate(R.layout.shopitem, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.shopitem2, parent, false);
 
-}
+    }
 /*
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
@@ -68,7 +69,7 @@ public class ItemCursorAdapter extends CursorAdapter
 
     @Override
     public void bindView(View view, final Context context, final Cursor cursor)
-            // //View의 각 위젯들의 속성을 지정하는것이 bindView
+    // //View의 각 위젯들의 속성을 지정하는것이 bindView
     {
 
 
@@ -79,6 +80,7 @@ public class ItemCursorAdapter extends CursorAdapter
         TextView tvnumber = (TextView)view.findViewById(R.id.itemnumber);
         TextView tvtype = (TextView)view.findViewById(R.id.itemtype);
         TextView tvid = (TextView)view.findViewById(_id);;
+        CheckBox btncheck = (CheckBox)view.findViewById(R.id.btncheck2);
         ImageView ivimage = (ImageView)view.findViewById(R.id.itemimage);
 
         Log.d("eom", "1");
@@ -87,33 +89,34 @@ public class ItemCursorAdapter extends CursorAdapter
 
 
 
-            String name = cursor.getString(cursor.getColumnIndexOrThrow("ItemName"));
-            String nation = cursor.getString(cursor.getColumnIndexOrThrow("ItemNation"));
-            String price = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
-            String number = cursor.getString(cursor.getColumnIndexOrThrow("ItemNumber"));
-            String type = cursor.getString(cursor.getColumnIndexOrThrow("ItemType"));
-            String _id = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
-            byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow("ItemPicture"));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow("ItemName"));
+        String nation = cursor.getString(cursor.getColumnIndexOrThrow("ItemNation"));
+        String price = cursor.getString(cursor.getColumnIndexOrThrow("ItemPrice"));
+        String number = cursor.getString(cursor.getColumnIndexOrThrow("ItemNumber"));
+        String type = cursor.getString(cursor.getColumnIndexOrThrow("ItemType"));
+        String _id = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
+        byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow("ItemPicture"));
 
-    //        byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
-             Bitmap bitmap = bytetobitmap(bytes);
-            //Bitmap bitmap2 = resizeBitmap(bitmap);
+        //        byte[] bytes = cursor.getBlob(cursor.getColumnIndex("ItemPicture"));
+        Bitmap bitmap = bytetobitmap(bytes);
+        //Bitmap bitmap2 = resizeBitmap(bitmap);
 
-      //  BitmapFactory.Options options = new BitmapFactory.Options();
-      //  options.inSampleSize = 16;
-       // Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+        //  BitmapFactory.Options options = new BitmapFactory.Options();
+        //  options.inSampleSize = 16;
+        // Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
 
-            Log.d("eom", "3");
+        Log.d("eom", "3");
 
-            tvname.setText("상품명 : "+name);
-            tvnation.setText("원산지 : "+nation);
-            tvprice.setText("상품가격 : "+price);
-            tvnumber.setText("상품수량 : "+number);
-            tvtype.setText("상품유형 : "+type);
-            tvid.setText("상품번호 : "+ _id);
+        tvname.setText("상품명 : "+name);
+        tvnation.setText("원산지 : "+nation);
+        tvprice.setText("상품가격 : "+price);
+        tvnumber.setText("상품수량 : "+number);
+        tvtype.setText("상품유형 : "+type);
+        tvid.setText("상품번호 : "+ _id);
+        //btncheck.setText("테스트" + _id);
 
-            ivimage.setImageBitmap(bitmap);
-            Log.d("eom", "4");
+        ivimage.setImageBitmap(bitmap);
+        Log.d("eom", "4");
 
 
 
@@ -125,7 +128,7 @@ public class ItemCursorAdapter extends CursorAdapter
                     final Button buttonOK = (Button)view2.findViewById(R.id.buttonOK);
                     final AlertDialog dialog = ad.create();*/
 
-                  //  Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
 
 
 /*                    SQLiteDatabase db, db2;
@@ -138,8 +141,8 @@ public class ItemCursorAdapter extends CursorAdapter
                     db = dbHelperItem.getReadableDatabase();
                     db2 = dbHelperUser.getReadableDatabase();*/
 
-                    //String sql = "select * from SKshops2 where _id='Item_id3'";
-                   // String sql2 = "select * from UsersInfor2 where id='test2'";
+        //String sql = "select * from SKshops2 where _id='Item_id3'";
+        // String sql2 = "select * from UsersInfor2 where id='test2'";
 
 
                     /*Cursor cursor2 = db.rawQuery(sql, null);
@@ -154,13 +157,13 @@ public class ItemCursorAdapter extends CursorAdapter
 
                     Toast.makeText(context, total+"", Toast.LENGTH_SHORT).show();
 */
-                    //dialog.show();
+        //dialog.show();
 
 
-                }
+    }
 
 
-            //  ivimage.setImageBitmap(bitmap);
+    //  ivimage.setImageBitmap(bitmap);
 
 
     /*

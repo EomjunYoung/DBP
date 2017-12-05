@@ -1,23 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/login_bg"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    tools:context="com.example.ejy77.myapplication.MemberRegister">
 
 
-    <Button
-        android:id="@+id/btncustomer"
+    <TextView
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="마이페이지"
+        android:layout_marginBottom="150dp"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textSize="20pt" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnmanager"
+
+        <Button
+
+            android:layout_gravity="center"
+            android:text="캐시충전"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/login_button"
+            android:id="@+id/manageInfor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="품목관리"
+            android:layout_gravity="center"
+            android:id="@+id/manageItem"
+            android:backgroundTint="@color/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivtest"
-        android:layout_width="230dp"
-        android:layout_height="230dp" />
+        <Button
+
+            android:layout_marginTop="200dp"
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_button"
+            android:text="BACK"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/btnCheck"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:background="@drawable/my_button"
+            />
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
 
 
 </LinearLayout>

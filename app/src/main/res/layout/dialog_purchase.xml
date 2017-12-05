@@ -9,18 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="사진/갤러리 선택 알림창"
+        android:text="구매확인 알림창"
         android:textColor="@color/white"
         android:background="@drawable/gradation_blue"/>
-    <TextView
-        android:id="@+id/editScore"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+
+    <EditText
+        android:textColorHint="@color/white"
+        android:hint="주문을 원하는 물품번호를 입력하세요."
         android:textColor="@color/white"
-        android:digits="0123456789"
-        android:inputType="number"
-        android:text="품목이미지가 있으면 갤러리, 없으면 카메라"/>
+        android:id="@+id/editnumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+    android:textColorHint="@color/white"
+    android:hint="주문을 원하는 물품의 갯수를 입력하세요."
+    android:textColor="@color/white"
+    android:id="@+id/editnumber2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+
     <LinearLayout
 
         android:layout_gravity="center"
@@ -28,23 +38,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3">
-        <Button
-            android:layout_gravity="center"
-            android:id="@+id/buttonGallery"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/login_button"
-            android:text="Album" />
-        <Button
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            android:id="@+id/buttonCamera"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/login_button"
-            android:text="Camera"/>
+
+
         <Button
             android:layout_marginLeft="10dp"
             android:layout_gravity="center"
@@ -53,7 +48,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/login_button"
-            android:text="취소"/>
+            android:text="Cancel"/>
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/buttonOK"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/login_button"
+            android:text="OK"/>
     </LinearLayout>
 
 </LinearLayout>

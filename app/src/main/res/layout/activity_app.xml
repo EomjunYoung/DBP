@@ -30,7 +30,7 @@
             android:layout_gravity="bottom"
             android:layout_weight="0.53"
             android:background="@drawable/my_button"
-            android:text="item Purchase"
+            android:text="마이페이지"
             android:textColor="@android:color/white"
             android:id="@+id/button2"
             android:layout_alignParentBottom="true"
