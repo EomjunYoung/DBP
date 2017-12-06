@@ -18,14 +18,14 @@
 
     <Button
         android:id="@+id/sellbtn"
-        android:text="Purchase"
+        android:text="구매하기"
         android:backgroundTint="@color/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/deleteItem"
-            android:text="BACK"
+            android:text="뒤로가기"
             android:backgroundTint="@color/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

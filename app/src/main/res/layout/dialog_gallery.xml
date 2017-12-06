@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="사진/갤러리 선택 알림창"
+        android:text="카메라/갤러리 선택 알림창(이미지 불러오기)"
         android:textColor="@color/white"
         android:background="@drawable/gradation_blue"/>
     <TextView
@@ -20,7 +20,7 @@
         android:textColor="@color/white"
         android:digits="0123456789"
         android:inputType="number"
-        android:text="품목이미지가 있으면 갤러리, 없으면 카메라"/>
+        android:text="이미지 등록시 미개봉상태인지 등 현재 물품의 상태를 잘 나태낼 수 있도록 해주세요."/>
     <LinearLayout
 
         android:layout_gravity="center"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/login_button"
-            android:text="Album" />
+            android:text="갤러리" />
         <Button
             android:layout_marginLeft="10dp"
             android:layout_gravity="center"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/login_button"
-            android:text="Camera"/>
+            android:text="카메라"/>
         <Button
             android:layout_marginLeft="10dp"
             android:layout_gravity="center"

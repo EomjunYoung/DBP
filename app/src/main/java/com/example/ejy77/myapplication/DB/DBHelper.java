@@ -139,6 +139,23 @@ import static com.example.ejy77.myapplication.R.id._id;
             }
         }
 
+        public void itemsearch(String _id)
+        {
+
+            initStringBuilder();
+            try {
+                SQLiteDatabase db = getReadableDatabase();
+                sb.append("Select * From Eoms where _id='"+_id+"'");
+                db.execSQL(sb.toString());
+            }
+
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+
         public void testdelete(String id)
         {
             initStringBuilder();
@@ -153,6 +170,8 @@ import static com.example.ejy77.myapplication.R.id._id;
                 e.printStackTrace();
             }
         }
+
+
 
 
 

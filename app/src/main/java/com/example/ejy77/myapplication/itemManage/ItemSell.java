@@ -88,13 +88,15 @@ public class ItemSell extends AppCompatActivity {
         list.add("여행/문화");
         list.add("도서/음반/DVD");*/
 
-        String[] list = new String[6];
+        String[] list = new String[8];
         list[0] = "스포츠/레저";
         list[1] = "화장품/미용";
         list[2] = "패션의류";
         list[3] = "가구/인테리어";
         list[4] = "여행/문화";
         list[5] = "도서/음반/DVD";
+        list[6] = "컴퓨터/노트북";
+        list[7] = "휴대폰/전자기기";
 
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list);
@@ -152,8 +154,9 @@ public class ItemSell extends AppCompatActivity {
                 Cursor cursor = dbHelperItem.getReadableDatabase().rawQuery(sql, null);
                 int count = cursor.getCount();*/
 
-                Intent intent = new Intent(ItemSell.this, Solditem.class);
-                startActivity(intent);
+               // Intent intent = new Intent(ItemSell.this, MainActivity2.class);
+               // startActivity(intent);
+                finish();
 
                 //String type = (String)ItemType.getItemAtPosition(i);
                 //Toast.makeText(getApplicationContext(), count+"", Toast.LENGTH_SHORT).show();
@@ -280,7 +283,7 @@ public class ItemSell extends AppCompatActivity {
                     final byte[] bytes = getByteArrayFromDrawable2(photo);
 
                     name = ItemName.getText().toString();
-                    nation = ItemName.getText().toString();
+                    nation = ItemNation.getText().toString();
                     price = ItemPrice.getText().toString();
                     number = ItemNumber.getText().toString();
                     type = ItemType.getSelectedItem().toString();

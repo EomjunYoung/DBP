@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
+
     tools:context="com.example.ejy77.myapplication.Login">
 
 
@@ -16,7 +17,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         app:srcCompat="@drawable/sklogo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <TextView
@@ -26,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:text="SK Wyverns SHOP"
+        android:text="Welcome To App Sell"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:background="#00000000"
@@ -64,6 +65,7 @@
         android:id="@+id/btn0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="Login"
         android:onClick="LoginClick"
         android:textColor="@android:color/white"

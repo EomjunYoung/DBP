@@ -36,14 +36,24 @@
             android:text="캐시충전"
             android:layout_marginRight="30dp"
             android:backgroundTint="@color/login_button"
+
             android:id="@+id/manageInfor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <Button
-            android:text="품목관리"
+        android:text="품목관리"
+        android:layout_gravity="center"
+        android:id="@+id/manageItem"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="@color/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+        <Button
+            android:text="구매내역"
             android:layout_gravity="center"
-            android:id="@+id/manageItem"
+            android:id="@+id/btnView"
             android:backgroundTint="@color/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

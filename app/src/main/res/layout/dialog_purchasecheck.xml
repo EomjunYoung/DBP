@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="삭제 경고 알림창"
+        android:text="구매 확인 알림창"
         android:textColor="@color/white"
         android:background="@drawable/gradation_blue"/>
     <TextView
@@ -19,14 +19,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:inputType="number"
-        android:text="정말로 삭제하시겠습니까?"/>
-    <EditText
-        android:id="@+id/editselect"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:hint="삭제하고 싶은 품목번호를 입력하세요."/>
+        android:text="주문은 아래 구매하기 버튼을 눌러서 진행해주세요."/>
+
 
     <LinearLayout
 
@@ -35,17 +29,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2">
+
         <Button
-            android:layout_gravity="center"
-            android:id="@+id/btnCancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/login_button"
-            android:text="취소" />
-        <Button
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
+
+            android:layout_gravity="right"
             android:id="@+id/btnOK"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -16,12 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.ejy77.myapplication.DB.DBHelper;
+import com.example.ejy77.myapplication.MypageChanger;
 import com.example.ejy77.myapplication.R;
 
 /**
@@ -33,6 +35,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ejy77.myapplication.R;
@@ -75,10 +78,34 @@ public class Solditem extends AppCompatActivity
 
 
 
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                AlertDialog.Builder ad = new AlertDialog.Builder(Solditem.this);
+                LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view2 = (LinearLayout) inflater.inflate(R.layout.dialog_purchasecheck, null);
+                ad.setView(view2);
+                final Button btnOK = (Button)view2.findViewById(R.id.btnOK);
+                final AlertDialog dialog = ad.create();
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+            }
+        });
+
+
+
         ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(this, cursor0, 0);
         listview.setAdapter(itemCursorAdapter);
-
-
         sellbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +144,9 @@ public class Solditem extends AppCompatActivity
                         ItemCursorAdapter itemCursorAdapter = new ItemCursorAdapter(getApplicationContext(), cursor00, 0);
                         itemCursorAdapter.notifyDataSetChanged();
                         listview.setAdapter(itemCursorAdapter);
+
+
+
 
                         dialog.dismiss();
 

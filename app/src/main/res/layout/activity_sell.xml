@@ -110,7 +110,7 @@
             android:layout_marginLeft="20dp"
             android:id="@+id/btngallery"
             android:layout_gravity="center"
-            android:text="Image ADD"
+            android:text="이미지추가"
             android:backgroundTint="@color/login_button"
             android:layout_weight="1"
             android:layout_width="wrap_content"

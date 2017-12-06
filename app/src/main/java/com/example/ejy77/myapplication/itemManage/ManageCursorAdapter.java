@@ -80,7 +80,6 @@ public class ManageCursorAdapter extends CursorAdapter
         TextView tvnumber = (TextView)view.findViewById(R.id.itemnumber);
         TextView tvtype = (TextView)view.findViewById(R.id.itemtype);
         TextView tvid = (TextView)view.findViewById(_id);;
-        CheckBox btncheck = (CheckBox)view.findViewById(R.id.btncheck2);
         ImageView ivimage = (ImageView)view.findViewById(R.id.itemimage);
 
         Log.d("eom", "1");

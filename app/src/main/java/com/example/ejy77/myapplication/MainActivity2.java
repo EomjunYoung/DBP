@@ -3,6 +3,10 @@ package com.example.ejy77.myapplication;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,9 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.Recognition.Loadimage;
 import com.example.ejy77.myapplication.Recognition.search;
 import com.example.ejy77.myapplication.itemManage.ItemCursorAdapter;
@@ -31,7 +39,9 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     Button button, button2, button3, button4;
-     String id;
+    String id;
+    DBHelper dbItemHelper;
+    SQLiteDatabase db;
 
 
 
@@ -48,6 +58,7 @@ public class MainActivity2 extends AppCompatActivity {
         button4 = (Button)findViewById(R.id.button4);
         id = getIntent().getStringExtra("login");
         Log.d("eom", id);
+        dbItemHelper = new DBHelper(getApplicationContext(), "itemdb5.db", null, 1);
 
 
 
@@ -108,6 +119,53 @@ public class MainActivity2 extends AppCompatActivity {
 
      //           startActivity(new Intent(getApplicationContext(), ItemSell.class).putExtra("login", id));
 
+                AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity2.this);
+                LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view2 = (LinearLayout) inflater.inflate(R.layout.dialog_search, null);
+                ad.setView(view2);
+                final Button btnSearch = (Button)view2.findViewById(R.id.btnSearch);
+                final Button btnOK = (Button)view2.findViewById(R.id.btnOK);
+                final ImageView ivsearch = (ImageView)view2.findViewById(R.id.ivsearch);
+                final TextView nowcash = (TextView)view2.findViewById(R.id.nowcash);
+                final EditText etsearch = (EditText) view2.findViewById(R.id.etsearch);
+                final AlertDialog dialog = ad.create();
+
+
+                btnSearch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+
+                        String itemname = etsearch.getText().toString();
+                        String sql = "select * from Eoms where ItemName='"+itemname +"'";
+                        db=dbItemHelper.getReadableDatabase();
+                        Cursor cursor = db.rawQuery(sql, null);
+                        cursor.moveToFirst();
+                        byte[] bytes = cursor.getBlob(cursor.getColumnIndexOrThrow("ItemPicture"));
+                        String name = cursor.getString(cursor.getColumnIndexOrThrow("ItemName"));
+                        Bitmap bitmap = bytetobitmap(bytes);
+                        ivsearch.setImageBitmap(bitmap);
+
+
+                    }
+                });
+
+
+
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+
+                        dialog.dismiss();
+
+
+                    }
+                });
+
+                dialog.show();
+
             }
         });
 
@@ -119,6 +177,12 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
+    }
+
+    public Bitmap bytetobitmap(byte[] bytes)
+    {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return bitmap;
     }
 
 

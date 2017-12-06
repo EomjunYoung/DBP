@@ -13,6 +13,16 @@
         android:textColor="@color/white"
         android:background="@drawable/gradation_blue"/>
 
+    <TextView
+        android:id="@+id/editScore"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:digits="0123456789"
+        android:inputType="number"
+        android:text="위 리스트에서 구매를 원하는 상품번호를 확인하세요."/>
+
 
     <EditText
         android:textColorHint="@color/white"
@@ -48,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/login_button"
-            android:text="Cancel"/>
+            android:text="취소"/>
         <Button
             android:layout_marginLeft="10dp"
             android:layout_gravity="center"
@@ -57,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/login_button"
-            android:text="OK"/>
+            android:text="확인"/>
     </LinearLayout>
 
 </LinearLayout>
