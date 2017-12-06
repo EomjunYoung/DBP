@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -82,6 +83,30 @@ public class ManageItem extends AppCompatActivity
 
         ManageCursorAdapter manageCursorAdapter = new ManageCursorAdapter(this, cursor0, 0);
         listview.setAdapter(manageCursorAdapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                AlertDialog.Builder ad = new AlertDialog.Builder(ManageItem.this);
+                LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view2 = (LinearLayout) inflater.inflate(R.layout.dialog_deletecheck, null);
+                ad.setView(view2);
+                final Button btnOK = (Button)view2.findViewById(R.id.btnOK);
+                final AlertDialog dialog = ad.create();
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+            }
+        });
 
 
         sellbtn.setOnClickListener(new View.OnClickListener() {
