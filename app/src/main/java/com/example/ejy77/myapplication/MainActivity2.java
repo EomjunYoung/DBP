@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.example.ejy77.myapplication.DB.DBHelper;
 import com.example.ejy77.myapplication.Recognition.Loadimage;
-import com.example.ejy77.myapplication.Recognition.search;
+
 import com.example.ejy77.myapplication.itemManage.ItemCursorAdapter;
 import com.example.ejy77.myapplication.itemManage.ItemManager;
 import com.example.ejy77.myapplication.itemManage.ItemSell;

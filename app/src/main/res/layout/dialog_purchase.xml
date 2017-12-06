@@ -44,14 +44,13 @@
     <LinearLayout
 
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3">
-
+        android:weightSum="2">
 
         <Button
-            android:layout_marginLeft="10dp"
+
             android:layout_gravity="center"
             android:id="@+id/buttonCancel"
             android:layout_width="0dp"
@@ -60,7 +59,7 @@
             android:backgroundTint="@color/login_button"
             android:text="취소"/>
         <Button
-            android:layout_marginLeft="10dp"
+
             android:layout_gravity="center"
             android:id="@+id/buttonOK"
             android:layout_width="0dp"

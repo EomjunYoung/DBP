@@ -23,7 +23,7 @@
         android:text="물품구매는 구매, 물품판매는 판매입니다."/>
     <LinearLayout
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3">
@@ -36,7 +36,7 @@
             android:backgroundTint="@color/login_button"
             android:text="구매" />
         <Button
-            android:layout_marginLeft="10dp"
+
             android:layout_gravity="center"
             android:id="@+id/buttonSell"
             android:layout_width="0dp"
@@ -45,7 +45,7 @@
             android:backgroundTint="@color/login_button"
             android:text="판매"/>
         <Button
-            android:layout_marginLeft="10dp"
+
             android:layout_gravity="center"
             android:id="@+id/buttonCancel"
             android:layout_width="0dp"
